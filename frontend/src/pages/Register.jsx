@@ -51,38 +51,44 @@ const Register = () => {
 
   return (
     <div>
-      <div>Register</div>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">
-          Name
-          <input name="name" id="name" type="text" value={name} onChange={handleChange} />
-        </label>
-        <label htmlFor="email">
-          Email
-          <input name="email" id="email" type="text" value={email} onChange={handleChange} />
-        </label>
-        <label htmlFor="password">
-          Password
-          <input
-            name="password"
-            id="password"
-            type="password"
-            value={password}
-            onChange={handleChange}
-          />
-        </label>
-        <label htmlFor="confirm-password">
-          Confirm Password
-          <input
-            name="password2"
-            id="password2"
-            type="password"
-            value={password2}
-            onChange={handleChange}
-          />
-        </label>
-        <button type="submit">Register</button>
-      </form>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <>
+          <div>Register</div>
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="name">
+              Name
+              <input name="name" id="name" type="text" value={name} onChange={handleChange} />
+            </label>
+            <label htmlFor="email">
+              Email
+              <input name="email" id="email" type="text" value={email} onChange={handleChange} />
+            </label>
+            <label htmlFor="password">
+              Password
+              <input
+                name="password"
+                id="password"
+                type="password"
+                value={password}
+                onChange={handleChange}
+              />
+            </label>
+            <label htmlFor="confirm-password">
+              Confirm Password
+              <input
+                name="password2"
+                id="password2"
+                type="password"
+                value={password2}
+                onChange={handleChange}
+              />
+            </label>
+            <button type="submit">Register</button>
+          </form>
+        </>
+      )}
     </div>
   );
 };

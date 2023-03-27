@@ -1,13 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import Button from "./Button";
-import VerticalEllipsis from "../assets/icon-vertical-ellipsis.svg";
-import Modal from "./Modal";
-import { editBoard } from "../features/boards/boardsSlice";
-import { logout, reset } from "../features/auth/authSlice";
+import { editBoard } from "../../features/boards/boardsSlice";
+import Modal from "../Modal";
 import Select from "react-select";
+import Button from "../Button";
 
 const options = [
   { value: "todo", label: "Todo" },
@@ -21,64 +17,6 @@ const colorStyles = {
     borderColor: state.isFocused ? "#a8a4ff" : "#828fa340",
     color: "#000000",
   }),
-};
-
-const Header = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { user } = useSelector((state) => state.auth);
-  const { board } = useSelector((state) => state.boards);
-  const [newTaskModalOpen, setNewTaskModalOpen] = useState(false);
-
-  const handleLogout = () => {
-    dispatch(logout());
-    dispatch(reset());
-    navigate("/");
-  };
-
-  return (
-    <header className="header">
-      <div className="board-name">{board && board.title}</div>
-
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <button className="button primary" onClick={() => setNewTaskModalOpen(true)}>
-          + Add New Task
-        </button>
-        <img
-          style={{ height: "max-content", marginLeft: "1.5rem" }}
-          src={VerticalEllipsis}
-          alt="Vertical Ellipsis"
-        />
-
-        {newTaskModalOpen && <NewTask setNewTaskModalOpen={setNewTaskModalOpen} />}
-
-        <ul>
-          <li>
-            <Link to={"/boards"}>Boards</Link>
-          </li>
-          {user ? (
-            <>
-              <li>
-                <button onClick={handleLogout}>Logout</button>
-              </li>
-              <li>
-                <div className="username">{user.name}</div>
-              </li>
-            </>
-          ) : (
-            <>
-              <li>
-                <Link to={"/login"}>Login</Link>
-              </li>
-              <li>
-                <Link to={"/register"}>Register</Link>
-              </li>
-            </>
-          )}
-        </ul>
-      </div>
-    </header>
-  );
 };
 
 const NewTask = ({ setNewTaskModalOpen }) => {
@@ -95,7 +33,10 @@ const NewTask = ({ setNewTaskModalOpen }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const updatedBoard = { ...board, tasks: [...board.tasks, newTask] };
+    const updatedBoard = {
+      ...board,
+      tasks: [...board.tasks, { ...newTask, status: newTask.status.value }],
+    };
     dispatch(editBoard(updatedBoard));
     setNewTaskModalOpen(false);
   };
@@ -137,7 +78,7 @@ const NewTask = ({ setNewTaskModalOpen }) => {
         </label> */}
 
         <label className="input label">
-          Status:
+          <div style={{ marginBottom: "8px" }}>Status:</div>
           {/* <select
             name="status"
             defaultValue={"todo"}
@@ -185,6 +126,7 @@ const NewTask = ({ setNewTaskModalOpen }) => {
                 // backgroundColor: "#2b2c37",
                 color: "#FFF",
               }),
+              // Selected value
               singleValue: (baseStyles, state) => ({
                 ...baseStyles,
                 color: "#FFF",
@@ -203,4 +145,4 @@ const NewTask = ({ setNewTaskModalOpen }) => {
   );
 };
 
-export default Header;
+export default NewTask;

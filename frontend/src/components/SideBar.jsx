@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import logoLight from "../assets/logo-light.svg";
 
-const SideBar = ({ boards }) => {
+const SideBar = ({ boards, setNewBoardModalOpen }) => {
   const renderBoards = () => {
     return boards.map((b) => (
       <li key={b._id}>
@@ -20,7 +20,12 @@ const SideBar = ({ boards }) => {
       </div>
       {/* <div>All boards {`(${boards.length})`}</div> */}
       <div className="boards">
-        <ul>{renderBoards()}</ul>
+        <ul>
+          {renderBoards()}
+          <li onClick={() => setNewBoardModalOpen(true)}>
+            <div className="link">+ Create New Board</div>
+          </li>
+        </ul>
         {/* <ul className="boards-list">{renderBoards()}</ul> */}
       </div>
     </aside>

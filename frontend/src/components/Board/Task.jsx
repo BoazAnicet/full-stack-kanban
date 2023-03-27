@@ -1,5 +1,4 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
 import Button from "../Button";
 import Modal from "../Modal";
 
@@ -31,11 +30,6 @@ const Task = ({ task, index }) => {
       )}
     </>
   );
-};
-
-Task.propTypes = {
-  task: PropTypes.object.isRequired,
-  index: PropTypes.number.isRequired,
 };
 
 export default Task;

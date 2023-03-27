@@ -114,10 +114,12 @@ const boardSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(editBoard.fulfilled, (state, action) => {
-        console.log(action.payload);
+        // console.log(action.payload);
         let updatedBoardIndex = state.boards.findIndex((b) => b._id === action.payload._id);
         state.boards[updatedBoardIndex] = action.payload;
-        // state.boards = [...state.boards, state.boards[updatedBoardIndex]: action.payload]
+        state.board = action.payload;
+
+        // console.log("From boards slice", state.boards);
 
         state.isSuccess = true;
         state.isLoading = false;
