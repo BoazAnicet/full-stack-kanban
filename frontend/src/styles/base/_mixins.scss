@@ -1,0 +1,40 @@
+@mixin transition($property: all) {
+  transition: $property 0.25s;
+}
+
+@mixin body-l {
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 23px;
+}
+
+@mixin body-m {
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 15px;
+}
+
+@mixin heading-xl {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 30px;
+}
+
+@mixin heading-l {
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 23px;
+}
+
+@mixin heading-m {
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 19px;
+}
+
+@mixin heading-s {
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 15px;
+  letter-spacing: 2.4px;
+}

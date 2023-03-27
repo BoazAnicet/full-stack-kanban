@@ -1,0 +1,47 @@
+$black: #000112;
+$dark-bg: #20212c;
+$dark-grey: #2b2c37;
+$dark-lines: #3e3f4e;
+$medium-grey: #828fa3;
+$light-lines: #e4ebfa;
+$light-bg: #f4f7fd;
+$white: #ffffff;
+
+$main-purple: #635fc7;
+$hover-purple: #a8a4ff;
+$red: #ea5555;
+$hover-red: #ff9898;
+
+:root {
+  --background: #{$dark-bg};
+  --text: #{$white};
+  --card-bg: #{$dark-grey};
+}
+
+[data-theme="light"] {
+  --background: #{$light-bg};
+  --text: #{$black};
+  --primary: #{$main-purple};
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text);
+  position: relative;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}

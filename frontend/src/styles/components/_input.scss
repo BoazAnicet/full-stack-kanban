@@ -1,0 +1,38 @@
+.input {
+  &.label {
+    height: max-content;
+    font-weight: bold;
+  }
+
+  &.container {
+    position: relative;
+
+    .error {
+      position: absolute;
+      top: 13px;
+      right: 16px;
+      color: red;
+      z-index: 100;
+      font-weight: 300;
+    }
+
+    .field {
+      border: 1px solid #828fa340;
+      background: transparent;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      color: var(--primary);
+      margin-top: 0.5rem;
+
+      &:hover {
+        border-color: $main-purple;
+      }
+
+      &:focus,
+      &:active {
+        outline: $main-purple;
+        border-color: $main-purple;
+      }
+    }
+  }
+}

@@ -1,0 +1,56 @@
+// .board {
+//   width: 100%;
+//   display: grid;
+//   grid-template-columns: repeat(3, 200px);
+// }
+
+.board {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+
+  & .content {
+    display: flex;
+    flex: 1;
+    padding: 1.5rem;
+    gap: 1.5rem;
+
+    & .empty {
+      flex-basis: 100%;
+      text-align: center;
+      align-self: center;
+      justify-self: center;
+    }
+
+    & .column {
+      ul {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        list-style: none;
+        height: 100%;
+        min-width: 17.5rem;
+        width: 17.5rem;
+        gap: 20px;
+        padding: 0;
+      }
+
+      &.new {
+        @include heading-xl;
+        color: $medium-grey;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba($black, 0.1);
+        border-radius: 6px;
+        margin-top: 35px;
+        margin-bottom: 5px;
+      }
+
+      &-title {
+        @include heading-s;
+        text-transform: uppercase;
+        color: $medium-grey;
+      }
+    }
+  }
+}
