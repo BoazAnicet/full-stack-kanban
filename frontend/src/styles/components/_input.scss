@@ -2,6 +2,10 @@
   &.label {
     height: max-content;
     font-weight: bold;
+
+    // &:not(:last-child) {
+    margin-bottom: 1rem;
+    // }
   }
 
   &.container {
@@ -23,6 +27,11 @@
       border-radius: 4px;
       color: var(--primary);
       margin-top: 0.5rem;
+      width: 100%;
+
+      &:not(:last-child) {
+        margin-bottom: 1rem;
+      }
 
       &:hover {
         border-color: $main-purple;

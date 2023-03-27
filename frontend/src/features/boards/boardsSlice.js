@@ -117,7 +117,8 @@ const boardSlice = createSlice({
         console.log(action.payload);
         let updatedBoardIndex = state.boards.findIndex((b) => b._id === action.payload._id);
         state.boards[updatedBoardIndex] = action.payload;
-        console.log(action.payload);
+        // state.boards = [...state.boards, state.boards[updatedBoardIndex]: action.payload]
+
         state.isSuccess = true;
         state.isLoading = false;
       })

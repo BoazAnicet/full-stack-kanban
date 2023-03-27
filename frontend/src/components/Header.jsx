@@ -6,8 +6,22 @@ import Button from "./Button";
 import VerticalEllipsis from "../assets/icon-vertical-ellipsis.svg";
 import Modal from "./Modal";
 import { editBoard } from "../features/boards/boardsSlice";
-
 import { logout, reset } from "../features/auth/authSlice";
+import Select from "react-select";
+
+const options = [
+  { value: "todo", label: "Todo" },
+  { value: "doing", label: "Doing" },
+  { value: "done", label: "Done" },
+];
+
+const colorStyles = {
+  control: (styles, state) => ({
+    ...styles,
+    borderColor: state.isFocused ? "#a8a4ff" : "#828fa340",
+    color: "#000000",
+  }),
+};
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -16,20 +30,11 @@ const Header = () => {
   const { board } = useSelector((state) => state.boards);
   const [newTaskModalOpen, setNewTaskModalOpen] = useState(false);
 
-  const [newTask, setNewTask] = useState({
-    title: "",
-    description: "",
-    status: "todo",
-    subtasks: [{ title: "Sign up page", isComplete: false }],
-  });
-
   const handleLogout = () => {
     dispatch(logout());
     dispatch(reset());
     navigate("/");
   };
-
-  const createTask = () => {};
 
   return (
     <header className="header">
@@ -84,70 +89,111 @@ const NewTask = ({ setNewTaskModalOpen }) => {
   const [newTask, setNewTask] = useState({
     title: "",
     description: "",
-    status: "",
+    status: "todo",
     subtasks: [],
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const updatedBoard = { ...board, tasks: [...board.tasks, newTask] };
-    console.log("task created");
     dispatch(editBoard(updatedBoard));
     setNewTaskModalOpen(false);
-  };
-
-  const renderOptions = () => {
-    let arr = ["Todo"];
-
-    return arr.map((el, i) => (
-      <option key={el} value={el}>
-        {el}
-      </option>
-    ));
   };
 
   return (
     <Modal>
       <h3>Add New Task</h3>
       <form onSubmit={handleSubmit}>
-        <label>
+        <label htmlFor="title" className="input label">
           Title:
-          <input
-            value={newTask.title}
-            name="title"
-            onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
-            placeholder="e.g. Take a coffee break"
-          />
+          <div className="input container">
+            <input
+              className="input field"
+              value={newTask.title}
+              name="title"
+              onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
+              placeholder="e.g. Take a coffee break"
+            />
+          </div>
         </label>
-        <label>
+        <br />
+        <label className="input label">
           Description:
-          <textarea
-            name="description"
-            placeholder="e.g. It’s always good to take a break. This 15 minute break will 
-              recharge the batteries a little."
-            rows={4}
-            value={newTask.description}
-            onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
-          />
+          <div className="input container">
+            <textarea
+              className="input field"
+              name="description"
+              placeholder="e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little."
+              rows={4}
+              value={newTask.description}
+              onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
+            />
+          </div>
         </label>
+        <br />
         {/* <label>
           Subtasks:
           <input placeholder="e.g. Make coffee" />
         </label> */}
 
-        <label>
+        <label className="input label">
           Status:
-          <select
+          {/* <select
             name="status"
+            defaultValue={"todo"}
             onChange={(e) => setNewTask({ ...newTask, status: e.target.value })}
           >
             <option value="todo">Todo</option>
             <option value="doing">Doing</option>
             <option value="done">Done</option>
-            {/* {renderOptions()} */}
-          </select>
+          </select> */}
+          <Select
+            className="input"
+            options={options}
+            defaultValue={"todo"}
+            value={newTask.status}
+            onChange={(selectedValue) => setNewTask({ ...newTask, status: selectedValue })}
+            // onChange={(e) => setNewTask({ ...newTask, status: e.target.value })}
+            // styles={colorStyles}
+            styles={{
+              control: (baseStyles, state) => ({
+                ...baseStyles,
+                borderColor: "#a8a4ff",
+                color: "#FFFFFF",
+                backgroundColor: "transparent",
+              }),
+              // Single option in list
+              // option: (baseStyles, state) => ({
+              //   ...baseStyles,
+              //   backgroundColor: "#2b2c37",
+              //   color: "#FFF",
+              // }),
+              // Arrow
+              dropdownIndicator: (baseStyles, state) => ({
+                ...baseStyles,
+                // backgroundColor: "#635fc7",
+                color: "#635fc7",
+              }),
+              menuList: (baseStyles, state) => ({
+                ...baseStyles,
+                backgroundColor: "#2b2c37",
+                color: "#FFF",
+              }),
+              // Initial text ex. "Select..."
+              placeholder: (baseStyles, state) => ({
+                ...baseStyles,
+                // backgroundColor: "#2b2c37",
+                color: "#FFF",
+              }),
+              singleValue: (baseStyles, state) => ({
+                ...baseStyles,
+                color: "#FFF",
+              }),
+            }}
+          />
         </label>
+        <br />
+        <br />
 
         <Button color={"primary"} variant={"large"} type="submit" fullWidth>
           Create Task
