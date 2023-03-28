@@ -8,7 +8,6 @@ const Board = () => {
   const dispatch = useDispatch();
   const { board, isLoading } = useSelector((state) => state.boards);
   const { id } = useParams();
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (id) {

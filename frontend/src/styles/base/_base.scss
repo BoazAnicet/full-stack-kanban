@@ -45,3 +45,16 @@ ul {
   padding: 0;
   list-style: none;
 }
+
+.ellipsis {
+  position: absolute;
+  top: 0px;
+  right: 0;
+  display: flex;
+  width: 30px;
+  justify-content: center;
+
+  &:hover {
+    cursor: pointer;
+  }
+}

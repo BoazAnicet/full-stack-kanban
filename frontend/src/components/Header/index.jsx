@@ -6,7 +6,6 @@ import VerticalEllipsis from "../../assets/icon-vertical-ellipsis.svg";
 import { logout, reset as authReset } from "../../features/auth/authSlice";
 import { reset as boardsReset } from "../../features/boards/boardsSlice";
 import NewTask from "./NewTask";
-import Button from "../Button";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -39,9 +38,9 @@ const Header = () => {
         {newTaskModalOpen && <NewTask setNewTaskModalOpen={setNewTaskModalOpen} />}
 
         <ul>
-          <li>
+          {/* <li>
             <Link to={"/boards"}>Boards</Link>
-          </li>
+          </li> */}
           {user ? (
             <>
               <li>

@@ -39,18 +39,38 @@ const Boards = () => {
       <div style={{ width: "100%" }}>
         <Header />
         <Board />
-
+        {/* 
+        <label htmlFor="title" className="input label">
+          Title:
+          <div className="input container">
+            <input
+              className="input field"
+              value={newTask.title}
+              name="title"
+              onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
+              placeholder="e.g. Take a coffee break"
+            />
+          </div>
+        </label>
+*/}
         {newBoardModalOpen && (
-          <Modal>
+          <Modal closeModal={() => setNewBoardModalOpen(false)}>
             <h3>Add New Board</h3>
             <form onSubmit={handleSubmit}>
-              <label htmlFor="name">Name</label>
-              <input
-                name="name"
-                placeholder="e.g. Web Design"
-                onChange={(e) => setTitle(e.target.value)}
-                value={title}
-              />
+              <label htmlFor="name" className="input label">
+                Name
+                <div className="input container">
+                  <input
+                    name="name"
+                    className="input field"
+                    placeholder="e.g. Web Design"
+                    onChange={(e) => setTitle(e.target.value)}
+                    value={title}
+                  />
+                </div>
+              </label>
+              <br />
+              <br />
               <Button color="primary" variant="large" fullWidth>
                 Create New Board
               </Button>

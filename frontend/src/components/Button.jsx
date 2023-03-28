@@ -1,4 +1,4 @@
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 
 const Button = ({ variant, color, children, fullWidth, ...props }) => {
   return (
@@ -11,13 +11,13 @@ const Button = ({ variant, color, children, fullWidth, ...props }) => {
   );
 };
 
-// Button.propTypes = {
-//   variant: PropTypes.oneOf(["large", "small"]).isRequired,
-//   color: PropTypes.oneOf(["primary", "secondary", "destructive"]).isRequired,
-// };
+Button.propTypes = {
+  variant: PropTypes.oneOf(["large", "small"]).isRequired,
+  color: PropTypes.oneOf(["primary", "secondary", "destructive"]).isRequired,
+};
 
-// Button.defaultProps = {
-//   variant: "large",
-// };
+Button.defaultProps = {
+  variant: "large",
+};
 
 export default Button;
