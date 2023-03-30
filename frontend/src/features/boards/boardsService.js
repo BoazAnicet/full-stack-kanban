@@ -56,11 +56,14 @@ const editBoard = async (board, token) => {
   return res;
 };
 
+const changeBoard = async (board) => board;
+
 const boardService = {
   createBoard,
   fetchAllBoards,
   fetchBoard,
   editBoard,
+  changeBoard,
 };
 
 export default boardService;

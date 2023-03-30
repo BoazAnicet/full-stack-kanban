@@ -4,6 +4,9 @@ import { editBoard } from "../../features/boards/boardsSlice";
 import Button from "../Button";
 import Modal from "../Modal";
 import VerticalEllipsis from "../../assets/icon-vertical-ellipsis.svg";
+import Select from "react-select";
+import options from "../Header/NewTask/options";
+import colorStyles from "../Header/NewTask/colorStyles";
 
 const Task = ({ task, index }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -12,6 +15,29 @@ const Task = ({ task, index }) => {
   const [editedTask, setEditedTask] = useState({ ...task });
   const { board } = useSelector((state) => state.boards);
   const dispatch = useDispatch();
+  const [popupMenuOpen, setPopupMenuOpen] = useState(false);
+
+  const deleteTask = () => {
+    const newTasks = board.tasks.filter((t) => t.id !== task.id);
+
+    const newBoard = { ...board, tasks: newTasks };
+
+    dispatch(editBoard(newBoard));
+    console.log("Attempting to delete task");
+  };
+
+  const PopupMenu = () => {
+    return (
+      <div className="popup-menu" onClick={(e) => e.stopPropagation()}>
+        <div onClick={() => setEditModalOpen(true)} className="white-color">
+          Edit Task
+        </div>
+        <div onClick={deleteTask} className="red-color">
+          Delete Task
+        </div>
+      </div>
+    );
+  };
 
   useEffect(() => {
     setEditedBoard({ ...board });
@@ -22,27 +48,36 @@ const Task = ({ task, index }) => {
     <>
       <li className="task" onClick={() => setModalOpen(true)}>
         <div className="title">{task.title}</div>
-        <div className="subtasks">0 of {task.subtasks.length} subtasks</div>
+        {/* <div className="subtasks">0 of {task.subtasks.length} subtasks</div> */}
       </li>
 
       {modalOpen && (
         <Modal closeModal={() => setModalOpen(false)}>
-          <h2>
-            <div className="ellipsis" onClick={() => console.log("ellipsis clicked")}>
+          <div style={{ position: "relative" }}>
+            <h2>{task.title}</h2>
+            <div className="ellipsis" onClick={() => setPopupMenuOpen(!popupMenuOpen)}>
               <img src={VerticalEllipsis} />
+              {popupMenuOpen && <PopupMenu />}
             </div>
-            {/* Add New Task */}
-            {task.title}
-          </h2>
+          </div>
 
           <p>{task.description}</p>
 
-          <select>
+          {/* <select>
             <option>Todo</option>
             <option>Doing</option>
             <option>Done</option>
-          </select>
+          </select> */}
 
+          <Select
+            className="input"
+            options={options}
+            defaultValue={"todo"}
+            value={task.status}
+            // onChange={(selectedValue) => setNewTask({ ...newTask, status: selectedValue })}
+            styles={colorStyles}
+          />
+          <br />
           <div className="buttons">
             <Button fullWidth color="destructive" onClick={() => setModalOpen(false)}>
               Close

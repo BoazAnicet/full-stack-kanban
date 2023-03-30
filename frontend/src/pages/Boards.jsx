@@ -38,7 +38,7 @@ const Boards = () => {
       <SideBar boards={boards} setNewBoardModalOpen={setNewBoardModalOpen} />
       <div style={{ width: "100%" }}>
         <Header />
-        <Board />
+        {boards ? <Board /> : ""}
         {/* 
         <label htmlFor="title" className="input label">
           Title:

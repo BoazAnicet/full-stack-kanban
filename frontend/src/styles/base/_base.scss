@@ -58,3 +58,18 @@ ul {
     cursor: pointer;
   }
 }
+
+.red-color {
+  color: $red;
+  &:hover {
+    cursor: pointer;
+    color: $hover-red;
+  }
+}
+.white-color {
+  color: $white;
+  &:hover {
+    cursor: pointer;
+    color: $medium-grey;
+  }
+}

@@ -62,6 +62,16 @@ export const editBoard = createAsyncThunk("board/edit", async (board, thunkAPI) 
   }
 });
 
+export const changeBoard = createAsyncThunk("board/change", async (board) => {
+  try {
+    return await boardsService.changeBoard(board);
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) || error.toString();
+    return thunkAPI.rejectWithValue(message);
+  }
+});
+
 const boardSlice = createSlice({
   name: "boards",
   initialState,
@@ -114,13 +124,9 @@ const boardSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(editBoard.fulfilled, (state, action) => {
-        // console.log(action.payload);
         let updatedBoardIndex = state.boards.findIndex((b) => b._id === action.payload._id);
         state.boards[updatedBoardIndex] = action.payload;
         state.board = action.payload;
-
-        // console.log("From boards slice", state.boards);
-
         state.isSuccess = true;
         state.isLoading = false;
       })
@@ -128,7 +134,12 @@ const boardSlice = createSlice({
         state.message = action.payload;
         state.isError = true;
         state.isLoading = true;
-      });
+      })
+      .addCase(changeBoard.pending, (state) => {})
+      .addCase(changeBoard.fulfilled, (state, action) => {
+        state.board = action.payload;
+      })
+      .addCase(changeBoard.rejected, (state, action) => {});
   },
 });
 

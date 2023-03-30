@@ -22,7 +22,17 @@ const NewTask = ({ setNewTaskModalOpen }) => {
     e.preventDefault();
     const updatedBoard = {
       ...board,
-      tasks: [...board.tasks, { ...newTask, status: newTask.status.value }],
+      tasks: [
+        ...board.tasks,
+        {
+          ...newTask,
+          status: newTask.status.value,
+          id:
+            newTask.title.split(" ").join("-").toLowerCase() +
+            "-" +
+            Math.floor(Math.random() * 99999),
+        },
+      ],
     };
     dispatch(editBoard(updatedBoard));
     setNewTaskModalOpen(false);
@@ -30,7 +40,7 @@ const NewTask = ({ setNewTaskModalOpen }) => {
 
   return (
     <Modal closeModal={() => setNewTaskModalOpen(false)}>
-      {/* <h3></h3> */}
+      <h3>Add new task</h3>
       <form onSubmit={handleSubmit}>
         <label htmlFor="title" className="input label">
           Title:

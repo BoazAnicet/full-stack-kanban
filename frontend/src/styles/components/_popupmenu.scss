@@ -1,0 +1,18 @@
+.popup-menu {
+  @include body-l;
+  position: absolute;
+  background-color: $dark-grey;
+  border-radius: 5px;
+  padding: 1rem;
+  top: 30px;
+  width: 12rem;
+  z-index: 10;
+
+  &:hover {
+    cursor: default;
+  }
+
+  & div:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+}
