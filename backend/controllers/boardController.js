@@ -32,7 +32,7 @@ exports.fetchBoard = async (req, res) => {
     return res.status(401).json({ message: "User not found" });
   }
 
-  // Make sure the logged in user matches the post user
+  // Make sure the logged in user matches the board.user
   if (board.user.toString() !== req.user.id) {
     return res.status(401).json({ message: "User not authorized" });
   }
@@ -52,7 +52,7 @@ exports.editBoard = async (req, res) => {
     return res.status(401).json({ message: "User not found" });
   }
 
-  // Make sure the logged in user matches the post user
+  // Make sure the logged in user matches the board.user
   if (board.user.toString() !== req.user.id) {
     return res.status(401).json({ message: "User not authorized" });
   }
@@ -65,28 +65,24 @@ exports.editBoard = async (req, res) => {
   return res.status(200).json(updatedBoard);
 };
 
-// exports.deleteBoard = async (req, res) => {
-//   const post = await Post.findById(req.params.id);
+exports.deleteBoard = async (req, res) => {
+  const board = await Board.findById(req.params.id);
 
-//   if (!post) {
-//     return res.status(400).json("Post not found");
-//     // throw new Error("Post not found");
-//   }
+  if (!board) {
+    return res.status(400).json("Board not found");
+  }
 
-//   // Check for user
-//   if (!req.user) {
-//     return res.status(401).json({ message: "User not found" });
-//     // throw new Error("User not found");
-//   }
+  // Check for user
+  if (!req.user) {
+    return res.status(401).json({ message: "User not found" });
+  }
 
-//   // Make sure the logged in user matches the post user
-//   if (post.user.toString() !== req.user.id) {
-//     return res.status(401).json({ message: "User not authorized" });
-//     // res.status(401);
-//     // throw new Error("User not authorized");
-//   }
+  // Make sure the logged in user matches the board user
+  if (board.user.toString() !== req.user.id) {
+    return res.status(401).json({ message: "User not authorized" });
+  }
 
-//   const deletedPost = await Post.findByIdAndDelete(req.params.id);
+  const deletedBoard = await Board.findByIdAndDelete(req.params.id);
 
-//   return res.status(200).json({ message: "Post deleted.", deletedPost });
-// };
+  return res.status(200).json({ message: "Board deleted.", deletedBoard });
+};

@@ -56,6 +56,18 @@ const editBoard = async (board, token) => {
   return res;
 };
 
+const deleteBoard = async (board, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const res = await axios.delete(`${URL}/${board._id}`, config).then((res) => res.data);
+
+  return res.deletedBoard;
+};
+
 const changeBoard = async (board) => board;
 
 const boardService = {
@@ -63,6 +75,7 @@ const boardService = {
   fetchAllBoards,
   fetchBoard,
   editBoard,
+  deleteBoard,
   changeBoard,
 };
 

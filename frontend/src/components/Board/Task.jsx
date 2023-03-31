@@ -55,7 +55,11 @@ const Task = ({ task, index }) => {
         <Modal closeModal={() => setModalOpen(false)}>
           <div style={{ position: "relative" }}>
             <h2>{task.title}</h2>
-            <div className="ellipsis" onClick={() => setPopupMenuOpen(!popupMenuOpen)}>
+            <div
+              className="ellipsis"
+              style={{ position: "relative" }}
+              onClick={() => setPopupMenuOpen(!popupMenuOpen)}
+            >
               <img src={VerticalEllipsis} />
               {popupMenuOpen && <PopupMenu />}
             </div>

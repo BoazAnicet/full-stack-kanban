@@ -86,6 +86,7 @@ const NewTask = ({ setNewTaskModalOpen }) => {
             styles={colorStyles}
           />
         </label>
+
         <br />
         <br />
 
