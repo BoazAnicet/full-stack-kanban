@@ -1,15 +1,9 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import VerticalEllipsis from "../../assets/icon-vertical-ellipsis.svg";
-import { logout, reset as authReset } from "../../features/auth/authSlice";
-import {
-  reset as boardsReset,
-  deleteBoard,
-  changeBoard,
-  editBoard,
-} from "../../features/boards/boardsSlice";
+import logoLight from "../../assets/logo-light.svg";
+import { deleteBoard, changeBoard, editBoard } from "../../features/boards/boardsSlice";
 import NewTask from "./NewTask";
 import Modal from "../Modal";
 import Button from "../Button";
@@ -18,7 +12,6 @@ import { toast } from "react-toastify";
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.auth);
   const { board, isSuccess, message, isError } = useSelector((state) => state.boards);
   const [newTaskModalOpen, setNewTaskModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
@@ -30,13 +23,6 @@ const Header = () => {
       toast.error(message);
     }
   }, [isError]);
-
-  const handleLogout = () => {
-    dispatch(logout());
-    dispatch(authReset());
-    dispatch(boardsReset());
-    navigate("/");
-  };
 
   const handleDelete = () => {
     setPopupMenuOpen(false);
@@ -69,7 +55,7 @@ const Header = () => {
 
   const PopupMenu = () => {
     return (
-      <div className="popup-menu" onClick={(e) => e.stopPropagation()}>
+      <div className="popup-menu" style={{ right: "10px" }} onClick={(e) => e.stopPropagation()}>
         <div onClick={openEdit} className="white-color">
           Edit Board
         </div>
@@ -82,6 +68,10 @@ const Header = () => {
 
   return (
     <header className="header">
+      <div className="logo-container">
+        <img src={logoLight} alt="Kanban" />
+      </div>
+
       <div className="board-name">{board && board.title}</div>
 
       <div style={{ display: "flex", alignItems: "center" }}>
@@ -121,35 +111,16 @@ const Header = () => {
           </Modal>
         )}
 
-        <ul>
-          {user ? (
-            <>
-              <li>
-                <button onClick={handleLogout}>Logout</button>
-              </li>
-              <li>
-                <div className="username">{user.name}</div>
-              </li>
-              {board && (
-                <li>
-                  <div className="ellipsis" onClick={() => setPopupMenuOpen(!popupMenuOpen)}>
-                    <img src={VerticalEllipsis} />
-                    {popupMenuOpen && <PopupMenu />}
-                  </div>
-                </li>
-              )}
-            </>
-          ) : (
-            <>
-              <li>
-                <Link to={"/login"}>Login</Link>
-              </li>
-              <li>
-                <Link to={"/register"}>Register</Link>
-              </li>
-            </>
-          )}
-        </ul>
+        {board && (
+          <div
+            className="ellipsis"
+            style={{ position: "relative" }}
+            onClick={() => setPopupMenuOpen(!popupMenuOpen)}
+          >
+            <img src={VerticalEllipsis} />
+            {popupMenuOpen && <PopupMenu />}
+          </div>
+        )}
       </div>
     </header>
   );

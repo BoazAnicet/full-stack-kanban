@@ -1,63 +1,14 @@
-// .sidebar {
-//   width: 300px;
-
-//   .logo {
-//     height: 80px;
-//     font-size: 2rem;
-//     display: flex;
-//     padding: 1rem;
-//     padding-left: 2rem;
-//     // border: 1px solid red;
-//     align-items: center;
-//   }
-
-//   & ul {
-//     padding-right: 2rem;
-
-//     & li {
-//       padding: 1rem;
-//       padding-left: 2rem;
-//       background-color: #333;
-//       border-bottom-right-radius: 999px;
-//       border-top-right-radius: 999px;
-
-//       &:not(:last-child) {
-//         // margin-bottom: 1rem;
-//       }
-//     }
-//   }
-// }
-
 .sidebar {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: calc(100vh - 80px);
   min-width: 300px;
   width: 300px;
   background-color: $dark-grey;
 
   transition: width 0.25s;
 
-  & .logo-container {
-    min-height: 96px;
-    padding: 0 2rem;
-
-    display: flex;
-    // justify-content: center;
-    align-items: center;
-    padding: 0 2rem;
-
-    // border: 1px solid $dark-lines;
-    border-top: transparent;
-    border-left: transparent;
-
-    & img {
-      height: max-content;
-    }
-  }
-
   & .num-of-boards {
-    // margin-left: 1rem;
     padding: 1rem 2rem;
     color: $medium-grey;
     text-transform: uppercase;
@@ -67,12 +18,18 @@
   }
 
   & .boards {
-    flex: 1;
+    // flex: 1;
     border: 1px solid $dark-lines;
     border-top: transparent;
     border-bottom: transparent;
     border-left: transparent;
     padding-right: 1.5rem;
+    padding-bottom: 1.5rem;
+
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
 
     ul {
       list-style: none;
@@ -130,6 +87,11 @@
           }
         }
       }
+    }
+
+    & .username {
+      // align-self: flex-end;
+      margin-left: 2rem;
     }
 
     // padding: 1rem 2rem 2rem 2rem;

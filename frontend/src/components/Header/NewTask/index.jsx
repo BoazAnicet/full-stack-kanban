@@ -17,6 +17,7 @@ const NewTask = ({ setNewTaskModalOpen }) => {
     status: "todo",
     subtasks: [],
   });
+  const [value, setValue] = useState(options[0]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -80,7 +81,7 @@ const NewTask = ({ setNewTaskModalOpen }) => {
           <Select
             className="input"
             options={options}
-            defaultValue={"todo"}
+            defaultValue={value}
             value={newTask.status}
             onChange={(selectedValue) => setNewTask({ ...newTask, status: selectedValue })}
             styles={colorStyles}

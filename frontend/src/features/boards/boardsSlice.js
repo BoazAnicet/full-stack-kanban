@@ -124,7 +124,6 @@ const boardSlice = createSlice({
       })
       .addCase(fetchBoard.fulfilled, (state, action) => {
         state.board = action.payload;
-        console.log(action.payload);
         state.isSuccess = true;
         state.isLoading = false;
       })
@@ -162,9 +161,12 @@ const boardSlice = createSlice({
         state.isError = true;
         state.isLoading = true;
       })
-      .addCase(changeBoard.pending, (state) => {})
+      .addCase(changeBoard.pending, (state) => {
+        state.isLoading = true;
+      })
       .addCase(changeBoard.fulfilled, (state, action) => {
         state.board = action.payload;
+        state.isLoading = false;
       })
       .addCase(changeBoard.rejected, (state, action) => {});
   },

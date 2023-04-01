@@ -12,15 +12,18 @@
 
   h2 {
     position: relative;
+    margin: 0;
+    margin-bottom: 1.5rem;
   }
 
   h3 {
     margin: 0;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     position: relative;
   }
 
   &-content {
+    position: relative;
     background-color: var(--background);
     border-radius: 6px;
     padding: 2rem;

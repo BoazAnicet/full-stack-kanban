@@ -1,24 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { fetchBoard, changeBoard } from "../../features/boards/boardsSlice";
+import { fetchBoard } from "../../features/boards/boardsSlice";
 import Task from "./Task";
 
 const Board = () => {
   const dispatch = useDispatch();
-  // const { boards, isLoading } = useSelector((state) => state.boards);
-  const { board, boards, isLoading } = useSelector((state) => state.boards);
-  const [loading, setLoading] = useState(true);
+  const { board, isLoading } = useSelector((state) => state.boards);
   const { id } = useParams();
-  // const [board, setBoard] = useState({});
 
   useEffect(() => {
     if (id) {
-      // dispatch(fetchBoard(id));
-      // setBoard(boards.filter((b) => b._id === id)[0]);
-      dispatch(changeBoard(boards.filter((b) => b._id === id)[0]));
-
-      setLoading(false);
+      dispatch(fetchBoard(id));
     }
   }, [id]);
 
@@ -30,8 +23,7 @@ const Board = () => {
 
   return (
     <div className="board">
-      {loading ? (
-        // {isLoading ? (
+      {isLoading ? (
         <div>Loading...</div>
       ) : (
         <div className="content">

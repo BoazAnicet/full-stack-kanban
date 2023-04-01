@@ -1,11 +1,21 @@
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import logoLight from "../assets/logo-light.svg";
-import boardIcon from "../assets/icon-board.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import IconBoard from "../assets/IconBoard";
+import { logout, reset as authReset } from "../features/auth/authSlice";
+import { reset as boardsReset } from "../features/boards/boardsSlice";
 
 const SideBar = ({ boards, setNewBoardModalOpen }) => {
   const { board } = useSelector((state) => state.boards);
+  const { user } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    dispatch(authReset());
+    dispatch(boardsReset());
+    navigate("/");
+  };
 
   const renderBoards = () => {
     return boards.map((b) => (
@@ -23,10 +33,6 @@ const SideBar = ({ boards, setNewBoardModalOpen }) => {
 
   return (
     <aside className="sidebar">
-      {/* <div className="logo">KANBAN</div> */}
-      <div className="logo-container">
-        <img src={logoLight} alt="Kanban" />
-      </div>
       <div className="num-of-boards">All boards {`(${boards.length})`}</div>
       <div className="boards">
         <ul>
@@ -35,7 +41,14 @@ const SideBar = ({ boards, setNewBoardModalOpen }) => {
             <div className="link">+ Create New Board</div>
           </li>
         </ul>
-        {/* <ul className="boards-list">{renderBoards()}</ul> */}
+
+        {user && (
+          <div className="username">
+            <div>{user.name}</div>
+            <br />
+            <button onClick={handleLogout}>Logout</button>
+          </div>
+        )}
       </div>
     </aside>
   );

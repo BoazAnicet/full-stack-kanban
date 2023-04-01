@@ -4,8 +4,29 @@
   align-items: center;
   justify-content: space-between;
   height: 80px;
-  padding: 1rem;
+  // padding: 1rem;
+  padding: 1rem 1rem 1rem 0;
   // border: 1px solid red;
+  background-color: $dark-grey;
+
+  & .logo-container {
+    min-height: 96px;
+    padding: 0 2rem;
+    width: 300px;
+
+    display: flex;
+    // justify-content: center;
+    align-items: center;
+    padding: 0 2rem;
+
+    // border: 1px solid $dark-lines;
+    border-top: transparent;
+    border-left: transparent;
+
+    & img {
+      height: max-content;
+    }
+  }
 
   & ul {
     list-style: none;

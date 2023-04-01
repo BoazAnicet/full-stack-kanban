@@ -47,12 +47,16 @@ ul {
 }
 
 .ellipsis {
-  position: absolute;
+  // position: fixed;
+  // position: absolute;
   top: 0px;
-  right: 0;
+  right: 0px;
   display: flex;
   width: 30px;
   justify-content: center;
+  z-index: 5;
+
+  // margin-left: 1rem;
 
   &:hover {
     cursor: pointer;
@@ -61,6 +65,7 @@ ul {
 
 .red-color {
   color: $red;
+
   &:hover {
     cursor: pointer;
     color: $hover-red;
@@ -68,6 +73,7 @@ ul {
 }
 .white-color {
   color: $white;
+
   &:hover {
     cursor: pointer;
     color: $medium-grey;
