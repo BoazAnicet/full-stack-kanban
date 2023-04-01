@@ -63,4 +63,12 @@
       background-color: $hover-red;
     }
   }
+
+  &.transparent {
+    background-color: transparent;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
 }

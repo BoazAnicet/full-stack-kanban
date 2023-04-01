@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import IconBoard from "../assets/IconBoard";
 import { logout, reset as authReset } from "../features/auth/authSlice";
 import { reset as boardsReset } from "../features/boards/boardsSlice";
+import Button from "./Button";
 
 const SideBar = ({ boards, setNewBoardModalOpen }) => {
   const { board } = useSelector((state) => state.boards);
@@ -46,7 +47,9 @@ const SideBar = ({ boards, setNewBoardModalOpen }) => {
           <div className="username">
             <div>{user.name}</div>
             <br />
-            <button onClick={handleLogout}>Logout</button>
+            <Button color="primary" onClick={handleLogout}>
+              Logout
+            </Button>
           </div>
         )}
       </div>

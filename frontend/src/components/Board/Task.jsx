@@ -4,9 +4,8 @@ import { editBoard } from "../../features/boards/boardsSlice";
 import Button from "../Button";
 import Modal from "../Modal";
 import VerticalEllipsis from "../../assets/icon-vertical-ellipsis.svg";
-import Select from "react-select";
-import options from "../Header/NewTask/options";
-import colorStyles from "../Header/NewTask/colorStyles";
+import Select from "../Select";
+import SubTask from "../SubTask";
 
 const Task = ({ task, index }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -16,6 +15,8 @@ const Task = ({ task, index }) => {
   const { board } = useSelector((state) => state.boards);
   const dispatch = useDispatch();
   const [popupMenuOpen, setPopupMenuOpen] = useState(false);
+  // Testing only
+  const [subtasks, setSubtasks] = useState([...task.subtasks]);
 
   const deleteTask = () => {
     const newTasks = board.tasks.filter((t) => t.id !== task.id);
@@ -77,6 +78,22 @@ const Task = ({ task, index }) => {
     );
   };
 
+  const renderSubTasks = () => {
+    // return task.subtasks.map((st) => (
+    // Testing
+    return subtasks.map((st, i) => (
+      <SubTask
+        key={i}
+        title={st.title}
+        isCompleted={st.isCompleted}
+        setSubtasks={setSubtasks}
+        index={i}
+        subtasks={subtasks}
+        task={task}
+      />
+    ));
+  };
+
   useEffect(() => {
     setEditedBoard({ ...board });
     console.log(".");
@@ -86,6 +103,9 @@ const Task = ({ task, index }) => {
     <>
       <li className="task" onClick={() => setModalOpen(true)}>
         <div className="title">{task.title}</div>
+        <div className="subtasks">
+          {subtasks.filter((st) => st.isCompleted).length} of {task.subtasks.length} subtasks
+        </div>
         {/* <div className="subtasks">0 of {task.subtasks.length} subtasks</div> */}
       </li>
 
@@ -103,14 +123,15 @@ const Task = ({ task, index }) => {
 
           <p>{task.description}</p>
 
+          <div className="subtasks">
+            {/* <SubTask /> */}
+            {renderSubTasks()}
+          </div>
+
           {/* <Select
-            className="input"
-            options={options}
             // defaultValue={"todo"}
-            // defaultInputValue={"todo"}
             value={task.status}
             // onChange={(selectedValue) => setNewTask({ ...newTask, status: selectedValue })}
-            styles={colorStyles}
           /> */}
           <br />
           <div className="buttons">
@@ -157,13 +178,10 @@ const Task = ({ task, index }) => {
               <br />
               <br />
               <Select
-                className="input"
-                options={options}
                 value={editedTask.status}
                 onChange={(selectedValue) =>
                   setEditedTask({ ...editedTask, status: selectedValue })
                 }
-                styles={colorStyles}
               />
             </label>
             <div className="buttons">

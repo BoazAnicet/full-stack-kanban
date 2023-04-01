@@ -1,3 +1,5 @@
+import ReactSelect from "react-select";
+
 const colorStyles = {
   control: (baseStyles, state) => ({
     ...baseStyles,
@@ -55,4 +57,14 @@ const colorStyles = {
   }),
 };
 
-export default colorStyles;
+const options = [
+  { value: "todo", label: "Todo" },
+  { value: "doing", label: "Doing" },
+  { value: "done", label: "Done" },
+];
+
+const Select = (props) => {
+  return <ReactSelect {...props} className="input" options={options} styles={colorStyles} />;
+};
+
+export default Select;

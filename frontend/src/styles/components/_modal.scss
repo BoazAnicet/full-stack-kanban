@@ -24,7 +24,8 @@
 
   &-content {
     position: relative;
-    background-color: var(--background);
+    background-color: $dark-grey;
+
     border-radius: 6px;
     padding: 2rem;
     min-width: 30rem;
