@@ -1,7 +1,8 @@
 .popup-menu {
   @include body-l;
   position: absolute;
-  background-color: $dark-grey;
+  background-color: $dark-bg;
+  // background-color: $dark-grey;
   border-radius: 5px;
   padding: 1rem;
   top: 30px;

@@ -7,12 +7,6 @@ import Select from "../../Select";
 import IconCross from "../../../assets/IconCross";
 import { replaceAt } from "../../../utils";
 
-// const replaceAt = (array, index, value) => {
-//   const ret = array.slice(0);
-//   ret[index] = value;
-//   return ret;
-// };
-
 const NewTask = ({ setNewTaskModalOpen }) => {
   const dispatch = useDispatch();
   const { board } = useSelector((state) => state.boards);
@@ -47,47 +41,31 @@ const NewTask = ({ setNewTaskModalOpen }) => {
     e.preventDefault();
     const arr = [...newTask.subtasks];
     arr.push({ title: "", isCompleted: false });
-    console.log(arr);
     setNewTask({ ...newTask, subtasks: arr });
   };
 
   const removeNewSubtask = (e, index) => {
     e.preventDefault();
-    console.log("clicked");
     const arr = [...newTask.subtasks];
-    console.log("copy of new subtasks", arr);
     arr.splice(index, 1);
-    console.log("arr after splicing", arr);
     setNewTask({ ...newTask, subtasks: arr });
   };
 
-  // const renderNewSubtasks = () => {
-  //   return newTask.subtasks.map((st, i) => (
-  //     <div className="input container" key={i}>
-  //       <input
-  //         className="input field"
-  //         // name="description"
-  //         // placeholder="e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little."
-  //         // rows={4}
-  //         value={st.title}
-  //         // onChange={(e) => setNewTask({ ...newTask, subtasks[0]:"sd" })}
-  //         onChange={() => {}}
-  //       />
-  //       <button onClick={(e) => removeNewSubtask(e, i)}>X</button>
-  //     </div>
-  //   ));
-  // };
   const renderNewSubtasks = () => {
     return newTask.subtasks.map((st, i) => (
       <div className="input container" key={i}>
         <input
           className="input field"
-          // name="description"
-          // placeholder="e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little."
-          // rows={4}
           value={st.title}
-          // onChange={(e) => setNewTask({ ...newTask, subtasks[0]:"sd" })}
-          onChange={() => {}}
+          onChange={(e) => {
+            setNewTask({
+              ...newTask,
+              subtasks: replaceAt(newTask.subtasks, i, {
+                ...newTask.subtasks[i],
+                title: e.target.value,
+              }),
+            });
+          }}
         />
         <button className="delete" onClick={(e) => removeNewSubtask(e, i)}>
           <IconCross />
@@ -101,7 +79,7 @@ const NewTask = ({ setNewTaskModalOpen }) => {
       <h3>Add new task</h3>
       <form onSubmit={handleSubmit}>
         <label htmlFor="title" className="input label">
-          Title:
+          Title
           <div className="input container">
             <input
               className="input field"
@@ -114,7 +92,7 @@ const NewTask = ({ setNewTaskModalOpen }) => {
         </label>
         <br />
         <label className="input label">
-          Description:
+          Description
           <div className="input container">
             <textarea
               className="input field"
@@ -128,7 +106,7 @@ const NewTask = ({ setNewTaskModalOpen }) => {
         </label>
         <br />
 
-        <div style={{ fontWeight: "bold" }}>Subtasks:</div>
+        <div style={{ fontWeight: "bold" }}>Subtasks</div>
 
         {renderNewSubtasks()}
 
@@ -137,8 +115,11 @@ const NewTask = ({ setNewTaskModalOpen }) => {
           + Add New Subtask
         </Button>
 
+        <br />
+        <br />
+
         <label className="input label">
-          <div style={{ marginBottom: "8px" }}>Status:</div>
+          <div style={{ marginBottom: "8px" }}>Status</div>
 
           <Select
             defaultValue={"todo"}

@@ -1,0 +1,29 @@
+#register {
+  position: relative;
+  height: 100vh;
+
+  .form {
+    padding: 2rem;
+    background-color: $dark-grey;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 300px;
+
+    & .logo {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 3rem;
+    }
+
+    & button {
+      margin-top: 1rem;
+
+      &:not(:last-child) {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+}
