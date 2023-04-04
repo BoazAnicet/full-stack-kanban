@@ -38,21 +38,9 @@ const Boards = () => {
       <Header />
       <div style={{ width: "100%", display: "flex" }}>
         <SideBar boards={boards} setNewBoardModalOpen={setNewBoardModalOpen} />
+
         {boards ? <Board /> : ""}
-        {/* 
-        <label htmlFor="title" className="input label">
-          Title:
-          <div className="input container">
-            <input
-              className="input field"
-              value={newTask.title}
-              name="title"
-              onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
-              placeholder="e.g. Take a coffee break"
-            />
-          </div>
-        </label>
-*/}
+
         {newBoardModalOpen && (
           <Modal closeModal={() => setNewBoardModalOpen(false)}>
             <h3>Add New Board</h3>

@@ -1,3 +1,4 @@
+"use strict";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editBoard } from "../../features/boards/boardsSlice";
@@ -6,11 +7,12 @@ import Modal from "../Modal";
 import VerticalEllipsis from "../../assets/icon-vertical-ellipsis.svg";
 import Select from "../Select";
 import SubTask from "../SubTask";
+import { replaceAt } from "../../utils/";
 
 const Task = ({ task, index }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
-  const [editedBoard, setEditedBoard] = useState({});
+  // const [editedBoard, setEditedBoard] = useState({});
   const [editedTask, setEditedTask] = useState({ ...task });
   const { board } = useSelector((state) => state.boards);
   const dispatch = useDispatch();
@@ -35,29 +37,30 @@ const Task = ({ task, index }) => {
 
   const handleEdit = (e) => {
     e.preventDefault();
+
     const newTasks = board.tasks.filter((t) => t.id != task.id);
+
     const updatedBoard = {
       ...board,
-      tasks: [
-        ...newTasks,
-        {
-          ...editedTask,
-          status: editedTask.status.value,
-        },
-      ],
+      tasks: replaceAt(
+        board.tasks,
+        board.tasks.findIndex((t) => t.id === task.id),
+        { ...editedTask, status: editedTask.status }
+      ),
     };
     // const updatedBoard = {
     //   ...board,
     //   tasks: [
-    //     ...board.tasks,
+    //     ...newTasks,
     //     {
     //       ...editedTask,
-    //       status: editedTask.status.value,
+    //       status: editedTask.status,
     //     },
     //   ],
     // };
 
     dispatch(editBoard(updatedBoard));
+
     setEditModalOpen(false);
   };
 
@@ -78,6 +81,31 @@ const Task = ({ task, index }) => {
     );
   };
 
+  const handleSelectChange = (selectedValue) => {
+    setEditedTask({ ...editedTask, status: selectedValue });
+
+    const newTasks = board.tasks.filter((t) => t.id != task.id);
+
+    const updatedBoard = {
+      ...board,
+      tasks: [
+        ...newTasks,
+        {
+          ...editedTask,
+          status: selectedValue,
+        },
+      ],
+    };
+
+    dispatch(editBoard(updatedBoard));
+    setModalOpen(true);
+  };
+
+  // useEffect(() => {
+  //   setEditedTask({ ...task });
+  //   console.log(".");
+  // }, [task]);
+
   const renderSubTasks = () => {
     // return task.subtasks.map((st) => (
     // Testing
@@ -94,10 +122,10 @@ const Task = ({ task, index }) => {
     ));
   };
 
-  useEffect(() => {
-    setEditedBoard({ ...board });
-    console.log(".");
-  }, [board]);
+  // useEffect(() => {
+  //   setEditedBoard({ ...board });
+  //   console.log(".");
+  // }, [board]);
 
   return (
     <>
@@ -106,7 +134,6 @@ const Task = ({ task, index }) => {
         <div className="subtasks">
           {subtasks.filter((st) => st.isCompleted).length} of {task.subtasks.length} subtasks
         </div>
-        {/* <div className="subtasks">0 of {task.subtasks.length} subtasks</div> */}
       </li>
 
       {modalOpen && (
@@ -123,16 +150,19 @@ const Task = ({ task, index }) => {
 
           <p>{task.description}</p>
 
-          <div className="subtasks">
-            {/* <SubTask /> */}
-            {renderSubTasks()}
-          </div>
+          <div className="subtasks">{renderSubTasks()}</div>
 
-          {/* <Select
-            // defaultValue={"todo"}
+          <Select
+            // defaultValue={editedTask.status}
+            // defaultValue={task.status}
             value={task.status}
-            // onChange={(selectedValue) => setNewTask({ ...newTask, status: selectedValue })}
-          /> */}
+            // value={editedTask.status}
+            onChange={(selectedValue) => {
+              // setEditedTask((prevState) => ({ ...prevState, status: selectedValue }));
+              // console.log("edited: ", editedTask);
+              handleSelectChange(selectedValue);
+            }}
+          />
           <br />
           <div className="buttons">
             <Button fullWidth color="destructive" onClick={() => setModalOpen(false)}>
@@ -153,7 +183,7 @@ const Task = ({ task, index }) => {
                   className="input field"
                   value={editedTask.title}
                   name="title"
-                  onChange={(e) => setNewTask({ ...editTask, title: e.target.value })}
+                  onChange={(e) => setEditedTask({ ...editedTask, title: e.target.value })}
                   placeholder="e.g. Take a coffee break"
                 />
               </div>
@@ -178,6 +208,7 @@ const Task = ({ task, index }) => {
               <br />
               <br />
               <Select
+                // value={{ value: "todo", label: "Todo" }}
                 value={editedTask.status}
                 onChange={(selectedValue) =>
                   setEditedTask({ ...editedTask, status: selectedValue })

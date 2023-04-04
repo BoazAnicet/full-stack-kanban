@@ -1,3 +1,4 @@
+"use strict";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
@@ -6,7 +7,7 @@ import Task from "./Task";
 
 const Board = () => {
   const dispatch = useDispatch();
-  const { board, isLoading } = useSelector((state) => state.boards);
+  const { board, isLoading } = useSelector((state) => state?.boards);
   const { id } = useParams();
 
   useEffect(() => {
@@ -17,8 +18,8 @@ const Board = () => {
 
   const renderTasks = (column) => {
     return board.tasks
-      .filter((t) => t.status === column)
-      .map((t, i) => <Task key={t.title} task={t} index={i} board={board} />);
+      .filter((t) => t.status.value === column)
+      .map((t, i) => <Task key={t.id} task={t} index={i} board={board} />);
   };
 
   return (

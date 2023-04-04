@@ -25,7 +25,7 @@ const NewTask = ({ setNewTaskModalOpen }) => {
         ...board.tasks,
         {
           ...newTask,
-          status: newTask.status.value,
+          status: newTask.status,
           id:
             newTask.title.split(" ").join("-").toLowerCase() +
             "-" +

@@ -86,6 +86,20 @@ const Register = () => {
                 </div>
               </label>
 
+              <label htmlFor="email" className="input label">
+                Email
+                <div className="input container">
+                  <input
+                    className="input field"
+                    name="email"
+                    id="email"
+                    type="text"
+                    value={email}
+                    onChange={handleChange}
+                  />
+                </div>
+              </label>
+
               {/* <label htmlFor="password">
                 Password
                 <input
