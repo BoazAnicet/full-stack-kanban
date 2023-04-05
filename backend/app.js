@@ -27,12 +27,5 @@ mongoose
   .then(() => {
     console.log("Connected to database.");
     app.listen(PORT, () => console.log(`Listening on ${PORT}`));
-  });
-// mongoose.connect(
-//   process.env.MONGODB_URI,
-//   { useNewUrlParser: true, useUnifiedTopology: true },
-//   () => {
-//     console.log("Connected to database.");
-//     app.listen(PORT, () => console.log(`Listening on ${PORT}`));
-//   }
-// );
+  })
+  .catch((error) => console.error(error));

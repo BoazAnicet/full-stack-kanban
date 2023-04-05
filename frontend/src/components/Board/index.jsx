@@ -2,24 +2,29 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { fetchBoard } from "../../features/boards/boardsSlice";
-import Task from "./Task";
+import { fetchBoard, changeBoard } from "../../features/boards/boardsSlice";
+import Column from "./Column";
 
 const Board = () => {
   const dispatch = useDispatch();
-  const { board, isLoading } = useSelector((state) => state?.boards);
+  const { board, isLoading, boards } = useSelector((state) => state?.boards);
   const { id } = useParams();
 
   useEffect(() => {
     if (id) {
       dispatch(fetchBoard(id));
+      // dispatch(changeBoard(boards.filter((b) => b._id === id)[0]));
     }
   }, [id]);
 
-  const renderTasks = (column) => {
-    return board.tasks
-      .filter((t) => t.status.value === column)
-      .map((t, i) => <Task key={t.id} task={t} index={i} board={board} />);
+  const renderColumns = () => {
+    return board.columns.map((c, i) => (
+      <Column
+        key={c.id}
+        column={c}
+        tasks={board.tasks.filter((t) => t.status.value === c.name.toLowerCase())}
+      />
+    ));
   };
 
   return (
@@ -27,24 +32,7 @@ const Board = () => {
       {isLoading ? (
         <div>Loading...</div>
       ) : (
-        <div className="content">
-          {board && (
-            <>
-              <div className="column">
-                <div className="column-title">Todo</div>
-                <ul>{renderTasks("todo")}</ul>
-              </div>
-              <div className="column">
-                <div className="column-title">Doing</div>
-                <ul>{renderTasks("doing")}</ul>
-              </div>
-              <div className="column">
-                <div className="column-title">Done</div>
-                <ul>{renderTasks("done")}</ul>
-              </div>
-            </>
-          )}
-        </div>
+        <div className="content">{board && <>{renderColumns()}</>}</div>
       )}
     </div>
   );

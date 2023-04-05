@@ -7,6 +7,7 @@ import Header from "../components/Header";
 import Modal from "../components/Modal";
 import SideBar from "../components/SideBar";
 import { createBoard, fetchAllBoards } from "../features/boards/boardsSlice";
+import { v4 as uuid4 } from "uuid";
 
 const Boards = () => {
   const [title, setTitle] = useState("");
@@ -28,7 +29,17 @@ const Boards = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createBoard({ title, tasks: [] }));
+    dispatch(
+      createBoard({
+        title,
+        tasks: [],
+        columns: [
+          { name: "Todo", id: uuid4() },
+          { name: "Doing", id: uuid4() },
+          { name: "Done", id: uuid4() },
+        ],
+      })
+    );
     setNewBoardModalOpen(false);
     setTitle("");
   };

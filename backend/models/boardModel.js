@@ -14,6 +14,9 @@ const boardSchema = new mongoose.Schema(
     tasks: {
       type: Array,
     },
+    columns: {
+      type: Array,
+    },
   },
   {
     timestamps: true,

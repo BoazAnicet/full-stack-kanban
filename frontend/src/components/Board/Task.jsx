@@ -48,16 +48,6 @@ const Task = ({ task, index }) => {
         { ...editedTask, status: editedTask.status }
       ),
     };
-    // const updatedBoard = {
-    //   ...board,
-    //   tasks: [
-    //     ...newTasks,
-    //     {
-    //       ...editedTask,
-    //       status: editedTask.status,
-    //     },
-    //   ],
-    // };
 
     dispatch(editBoard(updatedBoard));
 

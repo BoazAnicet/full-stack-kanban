@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { editBoard } from "../../../features/boards/boardsSlice";
-import Button from "../../Button";
-import Modal from "../../Modal";
-import Select from "../../Select";
-import IconCross from "../../../assets/IconCross";
-import { replaceAt } from "../../../utils";
+import { editBoard } from "../../features/boards/boardsSlice";
+import Button from "../Button";
+import Modal from "../Modal";
+import Select from "../Select";
+import IconCross from "../../assets/IconCross";
+import { replaceAt } from "../../utils";
+import { v4 as uuid4 } from "uuid";
 
 const NewTask = ({ setNewTaskModalOpen }) => {
   const dispatch = useDispatch();
@@ -26,10 +27,7 @@ const NewTask = ({ setNewTaskModalOpen }) => {
         {
           ...newTask,
           status: newTask.status,
-          id:
-            newTask.title.split(" ").join("-").toLowerCase() +
-            "-" +
-            Math.floor(Math.random() * 99999),
+          id: uuid4(),
         },
       ],
     };
