@@ -34,10 +34,11 @@ const Boards = () => {
         title,
         tasks: [],
         columns: [
-          { name: "Todo", id: uuid4() },
-          { name: "Doing", id: uuid4() },
-          { name: "Done", id: uuid4() },
+          { name: "Todo", id: uuid4(), taskIds: [] },
+          { name: "Doing", id: uuid4(), taskIds: [] },
+          { name: "Done", id: uuid4(), taskIds: [] },
         ],
+        columnOrder: ["Todo", "Doing", "Done"],
       })
     );
     setNewBoardModalOpen(false);

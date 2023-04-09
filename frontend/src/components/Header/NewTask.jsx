@@ -1,3 +1,4 @@
+"use strict";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editBoard } from "../../features/boards/boardsSlice";
@@ -16,21 +17,33 @@ const NewTask = ({ setNewTaskModalOpen }) => {
     description: "",
     status: "todo",
     subtasks: [],
+    id: uuid4(),
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    let col = {
+      ...board.columns.filter((c) => c.name === newTask.status.label)[0],
+      taskIds: [
+        ...board.columns.filter((c) => c.name === newTask.status.label)[0].taskIds,
+        newTask.id,
+      ],
+    };
+
     const updatedBoard = {
       ...board,
+      columns: [...board.columns.filter((c) => c.name !== newTask.status.label), col],
       tasks: [
         ...board.tasks,
         {
           ...newTask,
           status: newTask.status,
-          id: uuid4(),
         },
       ],
     };
+    // console.log(updatedBoard);
+
     dispatch(editBoard(updatedBoard));
     setNewTaskModalOpen(false);
   };
