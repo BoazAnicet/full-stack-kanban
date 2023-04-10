@@ -3,13 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { replaceAt } from "../utils";
 import { editBoard } from "../features/boards/boardsSlice";
 
-// const replaceAt = (array, index, value) => {
-//   const ret = array.slice(0);
-//   ret[index] = value;
-//   return ret;
-// };
-
-const SubTask = ({ title, isCompleted, setSubtasks, index, subtasks, task }) => {
+const SubTask = ({ title, isCompleted, index, subtasks, task, taskIndex }) => {
   const checkbox = useRef();
   const { board } = useSelector((state) => state.boards);
   const dispatch = useDispatch();
@@ -23,19 +17,25 @@ const SubTask = ({ title, isCompleted, setSubtasks, index, subtasks, task }) => 
   const change = () => {
     let newSubtasks = [...subtasks];
     newSubtasks = replaceAt(newSubtasks, index, { title, isCompleted: checkbox.current.checked });
-    setSubtasks(newSubtasks);
 
-    // dispatch(editBoard({
-    //   ...board,
-    //   tasks: replaceAt(board.tasks,)
-    // }))
+    const newTask = {
+      ...task,
+      subtasks: newSubtasks,
+    };
+
+    const newBoard = {
+      ...board,
+      tasks: replaceAt(board.tasks, taskIndex, newTask),
+    };
+
+    dispatch(editBoard(newBoard));
   };
 
   return (
     <label className="subtask">
       <input ref={checkbox} type="checkbox" onChange={change} />
       <span className="checkmark" />
-      <div className={`label ${checkbox?.current?.checked ? "checked" : ""}`}>{title}</div>
+      <div className={`label ${isCompleted ? "checked" : ""}`}>{title}</div>
     </label>
   );
 };

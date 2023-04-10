@@ -68,15 +68,12 @@ const deleteBoard = async (board, token) => {
   return res.deletedBoard;
 };
 
-const changeBoard = async (board) => board;
-
 const boardService = {
   createBoard,
   fetchAllBoards,
   fetchBoard,
   editBoard,
   deleteBoard,
-  changeBoard,
 };
 
 export default boardService;

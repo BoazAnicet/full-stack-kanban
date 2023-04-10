@@ -133,8 +133,7 @@ const NewTask = ({ setNewTaskModalOpen }) => {
           <div style={{ marginBottom: "8px" }}>Status</div>
 
           <Select
-            defaultValue={"todo"}
-            // defaultValue={value}
+            defaultValue={{ value: "todo", label: "Todo" }}
             value={newTask.status}
             onChange={(selectedValue) => setNewTask({ ...newTask, status: selectedValue })}
           />

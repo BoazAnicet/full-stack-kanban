@@ -75,16 +75,6 @@ export const deleteBoard = createAsyncThunk("board/delete", async (board, thunkA
   }
 });
 
-export const changeBoard = createAsyncThunk("board/change", async (board) => {
-  try {
-    return await boardsService.changeBoard(board);
-  } catch (error) {
-    const message =
-      (error.response && error.response.data && error.response.data.message) || error.toString();
-    return thunkAPI.rejectWithValue(message);
-  }
-});
-
 const boardSlice = createSlice({
   name: "boards",
   initialState,
@@ -94,6 +84,8 @@ const boardSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(createBoard.pending, (state) => {
+        state.isSuccess = false;
+        state.isError = false;
         state.isLoading = true;
       })
       .addCase(createBoard.fulfilled, (state, action) => {
@@ -132,15 +124,18 @@ const boardSlice = createSlice({
         state.isError = true;
         state.isLoading = true;
       })
-      .addCase(editBoard.pending, (state) => {
+      .addCase(editBoard.pending, (state, action) => {
+        let updatedBoardIndex = state.boards.findIndex((b) => b._id === action.meta.arg._id);
+        state.boards[updatedBoardIndex] = action.meta.arg;
+        state.board = action.meta.arg;
         // state.isLoading = true;
       })
       .addCase(editBoard.fulfilled, (state, action) => {
         let updatedBoardIndex = state.boards.findIndex((b) => b._id === action.payload._id);
         state.boards[updatedBoardIndex] = action.payload;
         state.board = action.payload;
-        // state.isSuccess = true;
-        // state.isLoading = false;
+        state.isSuccess = true;
+        state.isLoading = false;
       })
       .addCase(editBoard.rejected, (state, action) => {
         state.message = action.payload;
@@ -153,6 +148,7 @@ const boardSlice = createSlice({
       })
       .addCase(deleteBoard.fulfilled, (state, action) => {
         state.boards = state.boards.filter((b) => b._id !== action.payload._id);
+        state.board = null;
         state.isSuccess = true;
         state.isLoading = false;
       })
@@ -160,15 +156,7 @@ const boardSlice = createSlice({
         state.message = action.payload;
         state.isError = true;
         state.isLoading = true;
-      })
-      .addCase(changeBoard.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(changeBoard.fulfilled, (state, action) => {
-        state.board = action.payload;
-        state.isLoading = false;
-      })
-      .addCase(changeBoard.rejected, (state, action) => {});
+      });
   },
 });
 

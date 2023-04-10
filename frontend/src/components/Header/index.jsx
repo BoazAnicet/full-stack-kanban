@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import VerticalEllipsis from "../../assets/icon-vertical-ellipsis.svg";
 import logoLight from "../../assets/logo-light.svg";
-import { deleteBoard, changeBoard, editBoard } from "../../features/boards/boardsSlice";
+import { deleteBoard, editBoard } from "../../features/boards/boardsSlice";
 import NewTask from "./NewTask";
 import Modal from "../Modal";
 import Button from "../Button";
@@ -28,7 +28,6 @@ const Header = () => {
     setPopupMenuOpen(false);
     dispatch(deleteBoard(board));
     if (isSuccess) {
-      dispatch(changeBoard(null));
       navigate("/");
     }
   };

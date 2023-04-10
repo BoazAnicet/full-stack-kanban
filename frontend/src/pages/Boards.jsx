@@ -8,10 +8,11 @@ import Modal from "../components/Modal";
 import SideBar from "../components/SideBar";
 import { createBoard, fetchAllBoards } from "../features/boards/boardsSlice";
 import { v4 as uuid4 } from "uuid";
+import { toast } from "react-toastify";
 
 const Boards = () => {
   const [title, setTitle] = useState("");
-  const { boards } = useSelector((state) => state.boards);
+  const { boards, isSuccess } = useSelector((state) => state.boards);
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -29,6 +30,11 @@ const Boards = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (title.length <= 0) {
+      return toast.error("Name must not be empty");
+    }
+
     dispatch(
       createBoard({
         title,
@@ -41,8 +47,11 @@ const Boards = () => {
         columnOrder: ["Todo", "Doing", "Done"],
       })
     );
-    setNewBoardModalOpen(false);
-    setTitle("");
+
+    if (isSuccess) {
+      setNewBoardModalOpen(false);
+      setTitle("");
+    }
   };
 
   return (

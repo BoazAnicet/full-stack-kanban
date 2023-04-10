@@ -1,20 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { fetchBoard, changeBoard, editBoard } from "../../features/boards/boardsSlice";
+import { fetchBoard, editBoard } from "../../features/boards/boardsSlice";
 import Column from "./Column";
-
 import { DragDropContext } from "react-beautiful-dnd";
 
 const Board = () => {
   const dispatch = useDispatch();
-  const { board, isLoading, boards } = useSelector((state) => state?.boards);
+  const { board, isLoading } = useSelector((state) => state?.boards);
   const { id } = useParams();
 
   useEffect(() => {
     if (id) {
-      // dispatch(fetchBoard(id));
-      dispatch(changeBoard(boards.filter((b) => b._id === id)[0]));
+      dispatch(fetchBoard(id));
     }
   }, [id]);
 
