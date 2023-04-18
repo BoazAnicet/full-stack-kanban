@@ -2,18 +2,24 @@ const mongoose = require("mongoose");
 
 const templateSchema = new mongoose.Schema(
   {
-    // title: {
-    //   type: String,
-    //   required: [true, "Title is reqired."],
-    // },
-    tasks: {
-      type: Array,
+    name: {
+      type: String,
+      required: [true, "Name is reqired."],
     },
+    tasks: [
+      {
+        title: String,
+        descriptions: String,
+        status: { value: String, label: String },
+        subtasks: Array,
+        id: String,
+      },
+    ],
     columns: {
-      type: Array,
+      type: [String],
     },
     columnOrder: {
-      type: Array,
+      type: [String],
     },
   },
   {
