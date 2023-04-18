@@ -3,8 +3,9 @@ const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
 require("dotenv").config();
-const boardRoutes = require("./routes/boardRoutes");
 const userRoutes = require("./routes/userRoutes");
+const boardRoutes = require("./routes/boardRoutes");
+const templateRoutes = require("./routes/templateRoutes");
 const bodyParser = require("body-parser");
 const mongoSanitize = require("express-mongo-sanitize");
 
@@ -20,6 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/boards", boardRoutes);
+app.use("/api/v1/templates", templateRoutes);
 
 app.use(mongoSanitize());
 
