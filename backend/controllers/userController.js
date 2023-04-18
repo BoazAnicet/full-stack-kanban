@@ -1,5 +1,7 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+// const uuid = require("uuid");
+// const nodemailer = require("nodemailer");
 const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
 
@@ -80,5 +82,9 @@ const getMe = asyncHandler(async (req, res) => {
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
 };
+
+// const resetPassword = asyncHandler(async (req,res) => {
+
+// })
 
 module.exports = { registerUser, getMe, loginUser };

@@ -1,10 +1,9 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editBoard } from "../../features/boards/boardsSlice";
 import Button from "../Button";
 import Modal from "../Modal";
 import VerticalEllipsis from "../../assets/icon-vertical-ellipsis.svg";
-import Select from "../Select";
 import SubTask from "../SubTask";
 import { replaceAt } from "../../utils/";
 import IconCross from "../../assets/IconCross";
@@ -77,26 +76,6 @@ const Task = ({ task, index }) => {
         </div>
       </div>
     );
-  };
-
-  const handleSelectChange = (selectedValue) => {
-    setEditedTask({ ...editedTask, status: selectedValue });
-
-    const newTasks = board.tasks.filter((t) => t.id != task.id);
-
-    const updatedBoard = {
-      ...board,
-      tasks: [
-        ...newTasks,
-        {
-          ...editedTask,
-          status: selectedValue,
-        },
-      ],
-    };
-
-    dispatch(editBoard(updatedBoard));
-    setModalOpen(true);
   };
 
   const renderSubTasks = () => {
@@ -185,17 +164,6 @@ const Task = ({ task, index }) => {
 
           <div className="subtasks">{renderSubTasks()}</div>
 
-          {/* <Select
-            // defaultValue={editedTask.status}
-            // defaultValue={task.status}
-            value={task.status}
-            // value={editedTask.status}
-            onChange={(selectedValue) => {
-              // setEditedTask((prevState) => ({ ...prevState, status: selectedValue }));
-              // console.log("edited: ", editedTask);
-              handleSelectChange(selectedValue);
-            }}
-          /> */}
           <br />
           <div className="buttons">
             <Button fullWidth color="destructive" onClick={() => setModalOpen(false)}>
@@ -246,18 +214,6 @@ const Task = ({ task, index }) => {
               + Add New Subtask
             </Button>
 
-            {/* <label className="input label">
-              Status:
-              <br />
-              <br />
-              <Select
-                // value={{ value: "todo", label: "Todo" }}
-                value={editedTask.status}
-                onChange={(selectedValue) =>
-                  setEditedTask({ ...editedTask, status: selectedValue })
-                }
-              />
-            </label> */}
             <div className="buttons">
               <Button color="destructive" fullWidth onClick={closeEdit}>
                 Cancel

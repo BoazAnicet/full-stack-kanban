@@ -6,6 +6,7 @@ require("dotenv").config();
 const boardRoutes = require("./routes/boardRoutes");
 const userRoutes = require("./routes/userRoutes");
 const bodyParser = require("body-parser");
+const mongoSanitize = require("express-mongo-sanitize");
 
 app.use(cors());
 app.use(
@@ -19,6 +20,8 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/boards", boardRoutes);
+
+app.use(mongoSanitize());
 
 const PORT = process.env.PORT || 3001;
 mongoose.set("strictQuery", false);
