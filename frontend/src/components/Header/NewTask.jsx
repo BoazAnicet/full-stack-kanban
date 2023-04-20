@@ -9,8 +9,6 @@ import IconCross from "../../assets/IconCross";
 import { replaceAt } from "../../utils";
 import { v4 as uuid4 } from "uuid";
 
-import tempGifs from "../../gifs.json";
-
 import axios from "axios";
 const API_URL = "https://api.giphy.com/v1/gifs/trending?api_key=6jDT6m372Fsytxem8D3p3mCcncfTfO30";
 
