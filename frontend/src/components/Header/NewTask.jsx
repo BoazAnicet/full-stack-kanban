@@ -10,7 +10,9 @@ import { replaceAt } from "../../utils";
 import { v4 as uuid4 } from "uuid";
 
 import axios from "axios";
-const API_URL = "https://api.giphy.com/v1/gifs/trending?api_key=6jDT6m372Fsytxem8D3p3mCcncfTfO30";
+const API_URL = `https://api.giphy.com/v1/gifs/trending?api_key=${
+  import.meta.env.VITE_GIPHY_API_KEY
+}`;
 
 const NewTask = ({ setNewTaskModalOpen }) => {
   const dispatch = useDispatch();
@@ -47,14 +49,18 @@ const NewTask = ({ setNewTaskModalOpen }) => {
     let col = {
       ...board.columns.filter((c) => c.name === newTask.status.label)[0],
       taskIds: [
-        ...board.columns.filter((c) => c.name === newTask.status.label)[0].taskIds,
+        ...board.columns.filter((c) => c.name === newTask.status.label)[0]
+          .taskIds,
         newTask.id,
       ],
     };
 
     const updatedBoard = {
       ...board,
-      columns: [...board.columns.filter((c) => c.name !== newTask.status.label), col],
+      columns: [
+        ...board.columns.filter((c) => c.name !== newTask.status.label),
+        col,
+      ],
       tasks: [
         ...board.tasks,
         {
@@ -86,9 +92,9 @@ const NewTask = ({ setNewTaskModalOpen }) => {
 
   const renderNewSubtasks = () => {
     return newTask.subtasks.map((st, i) => (
-      <div className="input container" key={i}>
+      <div className='input container' key={i}>
         <input
-          className="input field"
+          className='input field'
           value={st.title}
           onChange={(e) => {
             setNewTask({
@@ -100,7 +106,7 @@ const NewTask = ({ setNewTaskModalOpen }) => {
             });
           }}
         />
-        <button className="delete" onClick={(e) => removeNewSubtask(e, i)}>
+        <button className='delete' onClick={(e) => removeNewSubtask(e, i)}>
           <IconCross />
         </button>
       </div>
@@ -133,44 +139,48 @@ const NewTask = ({ setNewTaskModalOpen }) => {
       <Modal closeModal={() => setNewTaskModalOpen(false)}>
         <h3>Add new task</h3>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="title" className="input label">
+          <label htmlFor='title' className='input label'>
             Title
-            <div className="input container">
+            <div className='input container'>
               <input
-                className="input field"
+                className='input field'
                 value={newTask.title}
-                name="title"
-                onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
-                placeholder="e.g. Take a coffee break"
+                name='title'
+                onChange={(e) =>
+                  setNewTask({ ...newTask, title: e.target.value })
+                }
+                placeholder='e.g. Take a coffee break'
               />
             </div>
           </label>
           <br />
-          <label className="input label">
+          <label className='input label'>
             Description
-            <div className="input container">
+            <div className='input container'>
               <textarea
-                className="input field"
-                name="description"
-                placeholder="e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little."
+                className='input field'
+                name='description'
+                placeholder='e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little.'
                 rows={4}
                 value={newTask.description}
-                onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
+                onChange={(e) =>
+                  setNewTask({ ...newTask, description: e.target.value })
+                }
               />
             </div>
           </label>
 
           <br />
-          {gif && <img src={gif} width="100%" />}
+          {gif && <img src={gif} width='100%' />}
           <br />
           <br />
           <Button
-            color="secondary"
+            color='secondary'
             fullWidth
             onClick={() => {
               setGifsOpen(true);
             }}
-            type="button"
+            type='button'
           >
             Add Gif
           </Button>
@@ -182,28 +192,30 @@ const NewTask = ({ setNewTaskModalOpen }) => {
           {renderNewSubtasks()}
 
           <br />
-          <Button color="secondary" fullWidth onClick={addNewSubtask}>
+          <Button color='secondary' fullWidth onClick={addNewSubtask}>
             + Add New Subtask
           </Button>
 
           <br />
           <br />
 
-          <label className="input label">
+          <label className='input label'>
             <div style={{ marginBottom: "8px" }}>Status</div>
 
             <Select
               // defaultValue={{ value: "todo", label: "Todo" }}
               value={newTask.status}
               options={options}
-              onChange={(selectedValue) => setNewTask({ ...newTask, status: selectedValue })}
+              onChange={(selectedValue) =>
+                setNewTask({ ...newTask, status: selectedValue })
+              }
             />
           </label>
 
           <br />
           <br />
 
-          <Button color={"primary"} variant={"large"} type="submit" fullWidth>
+          <Button color={"primary"} variant={"large"} type='submit' fullWidth>
             Create Task
           </Button>
         </form>

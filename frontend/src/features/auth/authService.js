@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3001/api/v1/users";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001/api/v1/";
 
 const register = async (userData) => {
-  const res = await axios.post(API_URL, userData);
+  const res = await axios.post(API_URL + "users", userData);
 
   if (res.data) {
     localStorage.setItem("user", JSON.stringify(res.data));
@@ -13,7 +13,7 @@ const register = async (userData) => {
 };
 
 const login = async (userData) => {
-  const res = await axios.post(`${API_URL}/login`, userData);
+  const res = await axios.post(`${API_URL}users/login`, userData);
 
   if (res.data) {
     localStorage.setItem("user", JSON.stringify(res.data));
