@@ -9,7 +9,7 @@ const templateSchema = new mongoose.Schema(
     tasks: [
       {
         title: String,
-        descriptions: String,
+        description: String,
         status: { value: String, label: String },
         subtasks: Array,
         id: String,

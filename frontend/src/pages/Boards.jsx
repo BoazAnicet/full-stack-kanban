@@ -12,6 +12,10 @@ import { v4 as uuid4 } from "uuid";
 import { toast } from "react-toastify";
 import { fetchAllTemplates } from "../features/boardTemplates/boardTemplatesSlice";
 
+import axios from "axios";
+
+import tempGifs from "../gifs.json";
+
 const Boards = () => {
   const [title, setTitle] = useState("");
   const { user } = useSelector((state) => state.auth);
@@ -22,6 +26,12 @@ const Boards = () => {
   const [newBoardModalOpen, setNewBoardModalOpen] = useState(false);
   const [newBoardOptions, setNewBoardOptions] = useState([]);
   const [selectedTemplate, setSelectedTemplate] = useState({ value: "none", label: "None" });
+  const [gif, setGif] = useState();
+
+  const API_URL = "https://api.giphy.com/v1/gifs/trending?api_key=6jDT6m372Fsytxem8D3p3mCcncfTfO30";
+  // const [gifsOpen, setGifsOpen] = useState(true);
+  const [gifsOpen, setGifsOpen] = useState(false);
+  const [gifs, setGifs] = useState([]);
 
   const [newBoard] = useState({
     tasks: [],
@@ -42,7 +52,29 @@ const Boards = () => {
   useEffect(() => {
     dispatch(fetchAllBoards());
     dispatch(fetchAllTemplates());
+    // fetchGifs();
   }, []);
+
+  const fetchGifs = async () => {
+    // const response = await axios.get(API_URL).then((res) => res.data.data);
+    // setGifs(response)
+    // console.log(response);
+  };
+
+  const renderGifs = () => {
+    return tempGifs.map((g) => (
+      <div
+        key={g.id}
+        style={{ display: "inline" }}
+        onClick={() => {
+          setGif(g.images.original.url);
+          setGifsOpen(false);
+        }}
+      >
+        <img src={g.images.original.url} height={140} />
+      </div>
+    ));
+  };
 
   useEffect(() => {
     const t = boardTemplates.map((t) => {
@@ -111,6 +143,20 @@ const Boards = () => {
                 Create New Board
               </Button>
             </form>
+          </Modal>
+        )}
+
+        {gifsOpen && (
+          <Modal
+            contentStyle={{
+              height: "90vh",
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "10px",
+              overflowY: "scroll",
+            }}
+          >
+            <div>{renderGifs()}</div>
           </Modal>
         )}
       </div>

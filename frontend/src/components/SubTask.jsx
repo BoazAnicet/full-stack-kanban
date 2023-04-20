@@ -16,6 +16,7 @@ const SubTask = ({ title, isCompleted, index, subtasks, task, taskIndex }) => {
 
   const change = () => {
     let newSubtasks = [...subtasks];
+
     newSubtasks = replaceAt(newSubtasks, index, { title, isCompleted: checkbox.current.checked });
 
     const newTask = {
@@ -23,9 +24,11 @@ const SubTask = ({ title, isCompleted, index, subtasks, task, taskIndex }) => {
       subtasks: newSubtasks,
     };
 
+    const newTasks = [...board.tasks.filter((t) => t.id !== newTask.id)];
+
     const newBoard = {
       ...board,
-      tasks: replaceAt(board.tasks, taskIndex, newTask),
+      tasks: [...newTasks, newTask],
     };
 
     dispatch(editBoard(newBoard));

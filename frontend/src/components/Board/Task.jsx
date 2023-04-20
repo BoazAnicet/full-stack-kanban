@@ -140,6 +140,10 @@ const Task = ({ task, index }) => {
             onClick={() => setModalOpen(true)}
           >
             <div className="title">{task.title}</div>
+            <br />
+
+            {task.img && <img src={task.img} style={{ width: "100%" }} />}
+
             {task.subtasks.length > 0 ? (
               <div className="subtasks">
                 {task.subtasks.filter((st) => st.isCompleted).length} of {task.subtasks.length}{" "}
@@ -163,6 +167,10 @@ const Task = ({ task, index }) => {
               </div>
             </div>
           </div>
+
+          <br />
+
+          {task.img && <img src={task.img} width="100%" />}
 
           <p>{task.description}</p>
 

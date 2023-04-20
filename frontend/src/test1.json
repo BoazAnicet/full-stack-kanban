@@ -1,0 +1,68 @@
+{
+  "_id": "6440a55a420f6eceab62a54b",
+  "user": "643d77505fad5435300dee07",
+  "title": "gif test",
+  "tasks": [
+    {
+      "title": "fhdfgh",
+      "description": "fhdfh",
+      "status": {
+        "value": "doing",
+        "label": "Doing"
+      },
+      "subtasks": [
+        {
+          "title": "dfghdfgh",
+          "isCompleted": false
+        }
+      ],
+      "id": "e294bc7e-da7f-4c97-ab9a-dec0fd3b0335",
+      "img": ""
+    },
+    {
+      "title": "fbnvcbn",
+      "description": "cvbncvn",
+      "status": {
+        "value": "todo",
+        "label": "Todo"
+      },
+      "subtasks": [
+        {
+          "title": "dfgsdfg",
+          "isCompleted": false
+        }
+      ],
+      "id": "87e9c7ad-3d36-4405-985f-1e463e4635c5",
+      "img": "https://media3.giphy.com/media/tXL4FHPSnVJ0A/giphy.gif?cid=a29b1944ck99otyxdoq5wvp3fagmkl527klpa32w9ts7nbr9&rid=giphy.gif&ct=g"
+    }
+  ],
+  "columns": [
+    {
+      "name": "Done",
+      "id": "c9b55f6e-53f0-4c27-9d30-d97121668d4b",
+      "taskIds": []
+    },
+    {
+      "name": "Doing",
+      "id": "fb1e6fac-4010-4542-9989-9b30dada1b41",
+      "taskIds": [
+        "e294bc7e-da7f-4c97-ab9a-dec0fd3b0335"
+      ]
+    },
+    {
+      "name": "Todo",
+      "id": "8c3ec8e8-c0ab-4216-80d3-482c9a8a7bf9",
+      "taskIds": [
+        "87e9c7ad-3d36-4405-985f-1e463e4635c5"
+      ]
+    }
+  ],
+  "columnOrder": [
+    "8c3ec8e8-c0ab-4216-80d3-482c9a8a7bf9",
+    "fb1e6fac-4010-4542-9989-9b30dada1b41",
+    "c9b55f6e-53f0-4c27-9d30-d97121668d4b"
+  ],
+  "createdAt": "2023-04-20T02:37:14.095Z",
+  "updatedAt": "2023-04-20T02:39:55.855Z",
+  "__v": 0
+}
