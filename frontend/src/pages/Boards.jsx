@@ -6,17 +6,32 @@ import Button from "../components/Button";
 import Header from "../components/Header";
 import Modal from "../components/Modal";
 import SideBar from "../components/SideBar";
+import Select from "../components/Select";
 import { createBoard, fetchAllBoards } from "../features/boards/boardsSlice";
 import { v4 as uuid4 } from "uuid";
 import { toast } from "react-toastify";
+import { fetchAllTemplates } from "../features/boardTemplates/boardTemplatesSlice";
 
 const Boards = () => {
   const [title, setTitle] = useState("");
-  const { boards, isSuccess } = useSelector((state) => state.boards);
   const { user } = useSelector((state) => state.auth);
+  const { boards, isSuccess } = useSelector((state) => state.boards);
+  const { boardTemplates } = useSelector((state) => state.boardTemplates);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [newBoardModalOpen, setNewBoardModalOpen] = useState(false);
+  const [newBoardOptions, setNewBoardOptions] = useState([]);
+  const [selectedTemplate, setSelectedTemplate] = useState({ value: "none", label: "None" });
+
+  const [newBoard] = useState({
+    tasks: [],
+    columns: [
+      { name: "Todo", id: uuid4(), taskIds: [] },
+      { name: "Doing", id: uuid4(), taskIds: [] },
+      { name: "Done", id: uuid4(), taskIds: [] },
+    ],
+    columnOrder: ["Todo", "Doing", "Done"],
+  });
 
   useEffect(() => {
     if (!user) {
@@ -26,27 +41,30 @@ const Boards = () => {
 
   useEffect(() => {
     dispatch(fetchAllBoards());
+    dispatch(fetchAllTemplates());
   }, []);
+
+  useEffect(() => {
+    const t = boardTemplates.map((t) => {
+      return { value: `${t.name}`.toLowerCase(), label: `${t.name}` };
+    });
+
+    setNewBoardOptions([{ value: "none", label: "None" }, ...t]);
+  }, [boardTemplates]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (title.length <= 0) {
-      return toast.error("Name must not be empty");
+      return toast.error("Title must not be empty");
     }
 
-    dispatch(
-      createBoard({
-        title,
-        tasks: [],
-        columns: [
-          { name: "Todo", id: uuid4(), taskIds: [] },
-          { name: "Doing", id: uuid4(), taskIds: [] },
-          { name: "Done", id: uuid4(), taskIds: [] },
-        ],
-        columnOrder: ["Todo", "Doing", "Done"],
-      })
-    );
+    if (selectedTemplate.value === "none") {
+      dispatch(createBoard({ ...newBoard, title, columnOrder: newBoard.columns.map((c) => c.id) }));
+    } else {
+      const template = boardTemplates.map(({ createdAt, updatedAt, _id, ...rest }) => rest)[0];
+      dispatch(createBoard({ title, ...template }));
+    }
 
     if (isSuccess) {
       setNewBoardModalOpen(false);
@@ -78,6 +96,15 @@ const Boards = () => {
                   />
                 </div>
               </label>
+              <br />
+              <br />
+              <div>Select a template</div>
+              <Select
+                defaultValue={{ value: "none", label: "None" }}
+                value={selectedTemplate}
+                options={newBoardOptions}
+                onChange={(selectedValue) => setSelectedTemplate(selectedValue)}
+              />
               <br />
               <br />
               <Button color="primary" variant="large" fullWidth>

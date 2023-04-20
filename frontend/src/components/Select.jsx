@@ -64,7 +64,14 @@ const options = [
 ];
 
 const Select = (props) => {
-  return <ReactSelect {...props} className="input" options={options} styles={colorStyles} />;
+  return (
+    <ReactSelect
+      {...props}
+      className="input"
+      options={props.options || options}
+      styles={colorStyles}
+    />
+  );
 };
 
 export default Select;

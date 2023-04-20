@@ -10,15 +10,15 @@ exports.createTemplate = async (req, res) => {
   }
 };
 
-// exports.fetchAllBoards = async (req, res) => {
-//   try {
-//     const boards = await Board.find({ user: req.user.id });
+exports.fetchAllTemplates = async (req, res) => {
+  try {
+    const templates = await Template.find({});
 
-//     return res.status(200).json({ boards });
-//   } catch (error) {
-//     return res.status(401).json({ message: "No boards found." });
-//   }
-// };
+    return res.status(200).json({ templates });
+  } catch (error) {
+    return res.status(401).json({ message: "No templates found." });
+  }
+};
 
 // exports.fetchBoard = async (req, res) => {
 //   const board = await Board.findById(req.params.id);

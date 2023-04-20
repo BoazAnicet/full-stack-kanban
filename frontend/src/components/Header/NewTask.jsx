@@ -1,5 +1,5 @@
 "use strict";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editBoard } from "../../features/boards/boardsSlice";
 import Button from "../Button";
@@ -19,6 +19,19 @@ const NewTask = ({ setNewTaskModalOpen }) => {
     subtasks: [],
     id: uuid4(),
   });
+
+  const [options, setOptions] = useState([]);
+  useEffect(() => {
+    let o = board.columns.map((c) => {
+      return {
+        value: `${c.name}`.toLowerCase(),
+        label: `${c.name}`,
+      };
+    });
+
+    setOptions(o);
+    console.log(o);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -135,6 +148,7 @@ const NewTask = ({ setNewTaskModalOpen }) => {
           <Select
             defaultValue={{ value: "todo", label: "Todo" }}
             value={newTask.status}
+            options={options}
             onChange={(selectedValue) => setNewTask({ ...newTask, status: selectedValue })}
           />
         </label>

@@ -16,7 +16,7 @@ const templateSchema = new mongoose.Schema(
       },
     ],
     columns: {
-      type: [String],
+      type: [{ name: String, id: String, taskIds: [String] }],
     },
     columnOrder: {
       type: [String],

@@ -17,8 +17,8 @@ const Board = () => {
   }, [id]);
 
   const renderColumns = () => {
-    return board.columnOrder.map((colName) => {
-      const column = board.columns.filter((c) => c.name === colName)[0];
+    return board.columnOrder.map((colId) => {
+      const column = board.columns.filter((c) => c.id === colId)[0];
 
       const tasks = column.taskIds.map((taskId) => board.tasks.filter((t) => t.id === taskId)[0]);
 

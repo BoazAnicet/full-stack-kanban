@@ -140,10 +140,14 @@ const Task = ({ task, index }) => {
             onClick={() => setModalOpen(true)}
           >
             <div className="title">{task.title}</div>
-            <div className="subtasks">
-              {task.subtasks.filter((st) => st.isCompleted).length} of {task.subtasks.length}{" "}
-              subtasks
-            </div>
+            {task.subtasks.length > 0 ? (
+              <div className="subtasks">
+                {task.subtasks.filter((st) => st.isCompleted).length} of {task.subtasks.length}{" "}
+                subtasks
+              </div>
+            ) : (
+              <></>
+            )}
           </li>
         )}
       </Draggable>

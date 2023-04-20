@@ -16,11 +16,11 @@
     @include transition;
     @include heading-m;
     color: var(--text);
-    margin-bottom: 0.5rem;
   }
 
   & .subtasks {
     @include body-m;
     color: $medium-grey;
+    margin-top: 0.5rem;
   }
 }
