@@ -31,8 +31,6 @@ const Login = () => {
       navigate("/");
     }
 
-    console.log(import.meta.env.VITE_URL);
-
     dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
