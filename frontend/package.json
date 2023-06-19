@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "host": "vite --host"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.2",
@@ -15,6 +16,7 @@
     "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
+    "react-responsive-masonry": "^2.1.7",
     "react-router": "^6.8.1",
     "react-router-dom": "^6.8.1",
     "react-select": "^5.7.2",

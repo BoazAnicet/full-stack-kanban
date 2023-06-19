@@ -8,6 +8,10 @@
 
   transition: width 0.25s;
 
+  // overflow: hidden;
+  position: relative;
+  z-index: 1;
+
   & .num-of-boards {
     padding: 1rem 2rem;
     color: $medium-grey;
@@ -85,6 +89,10 @@
               }
             }
           }
+
+          &.main-purple {
+            color: $main-purple;
+          }
         }
       }
     }
@@ -95,5 +103,16 @@
     }
 
     // padding: 1rem 2rem 2rem 2rem;
+  }
+
+  & .show {
+    position: absolute;
+    top: 90%;
+    left: 0px;
+    background-color: $main-purple;
+    padding: 1rem 1.5rem;
+    border-top-right-radius: 999px;
+    border-bottom-right-radius: 999px;
+    z-index: 0;
   }
 }

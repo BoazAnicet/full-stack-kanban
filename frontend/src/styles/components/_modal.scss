@@ -31,10 +31,27 @@
     min-width: 30rem;
     max-width: 30rem;
 
+    max-height: 97vh;
+    overflow-y: scroll;
+
     & .buttons {
       display: flex;
       gap: 1rem;
       margin-top: 1rem;
+    }
+
+    & .gifs {
+      // display: flex;
+      // flex-wrap: wrap;
+
+      // justify-content: center;
+
+      & div {
+        & img {
+          // max-height: 140px;
+          width: 100%;
+        }
+      }
     }
   }
 }

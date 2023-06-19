@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import VerticalEllipsis from "../../assets/icon-vertical-ellipsis.svg";
-import logoLight from "../../assets/logo-light.svg";
+import { LogoLight } from "../../assets/Icons";
 import { deleteBoard, editBoard } from "../../features/boards/boardsSlice";
 import NewTask from "./NewTask";
 import Modal from "../Modal";
@@ -68,7 +68,7 @@ const Header = () => {
   return (
     <header className="header">
       <div className="logo-container">
-        <img src={logoLight} alt="Kanban" />
+        <LogoLight />
       </div>
 
       <div className="board-name">{board && board.title}</div>

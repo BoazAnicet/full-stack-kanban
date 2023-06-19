@@ -26,6 +26,9 @@
     // height: 100vh;
     //
 
+    overflow-x: scroll;
+    overflow-y: hidden;
+
     & .empty {
       flex-basis: 100%;
       text-align: center;
@@ -35,9 +38,11 @@
 
     & .column {
       //
-      overflow: hidden;
+      // overflow: hidden;
       // height: 100vh;
       //
+      padding-top: 1rem;
+      padding-bottom: 1rem;
 
       ul {
         display: flex;
