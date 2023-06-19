@@ -6,7 +6,7 @@ import Modal from "../Modal";
 import VerticalEllipsis from "../../assets/icon-vertical-ellipsis.svg";
 import SubTask from "../SubTask";
 import { replaceAt } from "../../utils/";
-import IconCross from "../../assets/IconCross";
+import { IconCross } from "../../assets/Icons";
 import { Draggable } from "react-beautiful-dnd";
 
 const Task = ({ task, index }) => {

@@ -5,7 +5,7 @@ import { editBoard } from "../../features/boards/boardsSlice";
 import Button from "../Button";
 import Modal from "../Modal";
 import Select from "../Select";
-import IconCross from "../../assets/IconCross";
+import { IconCross } from "../../assets/Icons";
 import { replaceAt } from "../../utils";
 import { v4 as uuid4 } from "uuid";
 

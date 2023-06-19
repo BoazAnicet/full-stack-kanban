@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { register, reset } from "../features/auth/authSlice";
 import Spinner from "../components/Spinner";
-import LogoLight from "../assets/LogoLight";
+import { LogoLight } from "../assets/Icons";
 import Button from "../components/Button";
 
 const Register = () => {
