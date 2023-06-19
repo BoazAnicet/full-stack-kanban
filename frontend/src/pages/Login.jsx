@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import Spinner from "../components/Spinner";
 import Button from "../components/Button";
 import { login, reset } from "../features/auth/authSlice";
-import LogoLight from "../assets/LogoLight";
+import { LogoLight } from "../assets/Icons";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -16,9 +16,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.auth
-  );
+  const { user, isLoading, isError, isSuccess, message } = useSelector((state) => state.auth);
 
   const { email, password } = formData;
 
@@ -46,50 +44,46 @@ const Login = () => {
   if (isLoading) return <Spinner />;
 
   return (
-    <div id='login'>
-      <div className='form'>
-        <div className='logo'>
+    <div id="login">
+      <div className="form">
+        <div className="logo">
           <LogoLight />
         </div>
 
         <form onSubmit={handleSubmit}>
-          <label htmlFor='email' className='input label'>
+          <label htmlFor="email" className="input label">
             Email
-            <div className='input container'>
+            <div className="input container">
               <input
-                className='input field'
-                name='email'
-                id='email'
-                type='text'
+                className="input field"
+                name="email"
+                id="email"
+                type="text"
                 value={email}
                 onChange={handleChange}
               />
             </div>
           </label>
 
-          <label htmlFor='password' className='input label'>
+          <label htmlFor="password" className="input label">
             Password
-            <div className='input container'>
+            <div className="input container">
               <input
-                className='input field'
-                name='password'
-                id='password'
-                type='password'
+                className="input field"
+                name="password"
+                id="password"
+                type="password"
                 value={password}
                 onChange={handleChange}
               />
             </div>
           </label>
 
-          <Button color='primary' type='submit' fullWidth>
+          <Button color="primary" type="submit" fullWidth>
             Login
           </Button>
           <hr />
-          <Button
-            color='secondary'
-            fullWidth
-            onClick={() => navigate("/register")}
-          >
+          <Button color="secondary" fullWidth onClick={() => navigate("/register")}>
             Register
           </Button>
         </form>
