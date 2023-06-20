@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router";
 import Boards from "./pages/Boards";
-// import Header from "./components/Header";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import { ToastContainer } from "react-toastify";
@@ -9,7 +8,6 @@ import "react-toastify/dist/ReactToastify.css";
 const App = () => {
   return (
     <div>
-      {/* <Header /> */}
       <Routes>
         <Route path="/" element={<Boards />} />
         <Route path="/boards/:id" element={<Boards />} />

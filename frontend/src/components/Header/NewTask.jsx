@@ -1,4 +1,5 @@
 "use strict";
+
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editBoard } from "../../features/boards/boardsSlice";
@@ -114,40 +115,21 @@ const NewTask = ({ setNewTaskModalOpen }) => {
   const fetchGifs = async () => {
     const response = await axios.get(API_URL).then((res) => res.data.data);
     setGifs(response);
-    // console.log(response);
   };
 
   const renderGifs = () => {
     return gifs.map((g) => (
       <div
         key={g.id}
-        // style={{ display: "inline" }}
         onClick={() => {
           setGif(g.images.original.url);
           setGifsOpen(false);
         }}
       >
-        <img
-          //  style={{ width: "100%" }}
-          src={g.images.fixed_width.url}
-        />
+        <img src={g.images.fixed_width.url} />
       </div>
     ));
   };
-  // const renderGifs = () => {
-  //   return gifs.map((g) => (
-  //     <div
-  //       key={g.id}
-  //       // style={{ display: "inline" }}
-  //       onClick={() => {
-  //         setGif(g.images.original.url);
-  //         setGifsOpen(false);
-  //       }}
-  //     >
-  //       <img src={g.images.original.url} height={140} />
-  //     </div>
-  //   ));
-  // };
 
   return (
     <>
@@ -243,8 +225,6 @@ const NewTask = ({ setNewTaskModalOpen }) => {
           <Masonry gutter="4px" columnsCount={1} className="gifs">
             {renderGifs()}
           </Masonry>
-
-          {/* <div className="gifs">{renderGifs()}</div> */}
         </Modal>
       )}
     </>

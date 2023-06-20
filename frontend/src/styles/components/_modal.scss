@@ -55,3 +55,31 @@
     }
   }
 }
+
+@media (max-width: 500px) {
+  .modal {
+    h2 {
+    }
+
+    h3 {
+    }
+
+    &-content {
+      //
+      min-width: 95%;
+      max-width: 95%;
+      margin: 1rem;
+      //
+
+      & .buttons {
+      }
+
+      & .gifs {
+        & div {
+          & img {
+          }
+        }
+      }
+    }
+  }
+}

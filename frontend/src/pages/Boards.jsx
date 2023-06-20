@@ -11,6 +11,7 @@ import { createBoard, fetchAllBoards } from "../features/boards/boardsSlice";
 import { v4 as uuid4 } from "uuid";
 import { toast } from "react-toastify";
 import { fetchAllTemplates } from "../features/boardTemplates/boardTemplatesSlice";
+import { useWindowSize } from "@uidotdev/usehooks";
 
 const Boards = () => {
   const [title, setTitle] = useState("");
@@ -22,6 +23,9 @@ const Boards = () => {
   const [newBoardModalOpen, setNewBoardModalOpen] = useState(false);
   const [newBoardOptions, setNewBoardOptions] = useState([]);
   const [selectedTemplate, setSelectedTemplate] = useState({ value: "none", label: "None" });
+
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const size = useWindowSize();
 
   const [newBoard] = useState({
     tasks: [],
@@ -52,6 +56,12 @@ const Boards = () => {
     setNewBoardOptions([{ value: "none", label: "None" }, ...t]);
   }, [boardTemplates]);
 
+  useEffect(() => {
+    if (size.width > 500) {
+      setMobileMenuOpen(true);
+    }
+  }, [size.width]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -74,9 +84,17 @@ const Boards = () => {
 
   return (
     <div id="boards">
-      <Header />
+      <Header mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
       <div style={{ width: "100%", display: "flex" }}>
-        <SideBar boards={boards} setNewBoardModalOpen={setNewBoardModalOpen} />
+        {mobileMenuOpen && (
+          // {size.width > 500 && mobileMenuOpen && (
+          <SideBar
+            boards={boards}
+            setNewBoardModalOpen={setNewBoardModalOpen}
+            mobileMenuOpen={mobileMenuOpen}
+            setMobileMenuOpen={setMobileMenuOpen}
+          />
+        )}
 
         {boards ? <Board /> : ""}
 

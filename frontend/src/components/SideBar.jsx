@@ -3,16 +3,18 @@ import { Link, useNavigate } from "react-router-dom";
 import { logout, reset as authReset } from "../features/auth/authSlice";
 import { reset as boardsReset } from "../features/boards/boardsSlice";
 import Button from "./Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IconHideSidebar, IconShowSidebar, IconBoard } from "../assets/Icons";
+import { useWindowSize } from "@uidotdev/usehooks";
 
-const SideBar = ({ boards, setNewBoardModalOpen }) => {
+const SideBar = ({ boards, setNewBoardModalOpen, setMobileMenuOpen }) => {
   const { board } = useSelector((state) => state.boards);
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [barHidden, setBarHidden] = useState(false);
+  const size = useWindowSize();
 
   const handleLogout = () => {
     dispatch(logout());
@@ -21,9 +23,15 @@ const SideBar = ({ boards, setNewBoardModalOpen }) => {
     navigate("/");
   };
 
+  useEffect(() => {
+    if (size.width < 500) {
+      setBarHidden(false);
+    }
+  }, [size.width]);
+
   const renderBoards = () => {
     return boards.map((b) => (
-      <li key={b._id}>
+      <li key={b._id} onClick={() => setMobileMenuOpen(false)}>
         <Link
           role="button"
           className={`link ${b._id === board?._id ? "active" : ""}`}
@@ -62,14 +70,16 @@ const SideBar = ({ boards, setNewBoardModalOpen }) => {
                   </Button>
                 </div>
               )}
-              <Button color="transparent" onClick={() => setBarHidden(true)}>
-                <IconHideSidebar /> Hide Sidebar
-              </Button>
+              {!barHidden && size.width > 500 && (
+                <Button color="transparent" onClick={() => setBarHidden(true)}>
+                  <IconHideSidebar /> Hide Sidebar
+                </Button>
+              )}
             </div>
           </div>
         </>
       )}
-      {barHidden && (
+      {barHidden && size.width > 500 && (
         <div className="show" onClick={() => setBarHidden(false)}>
           <IconShowSidebar />
         </div>
