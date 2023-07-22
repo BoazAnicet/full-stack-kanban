@@ -15,6 +15,7 @@ import Modal from "../Modal";
 import Button from "../Button";
 import { toast } from "react-toastify";
 import { useWindowSize } from "@uidotdev/usehooks";
+import * as Popover from "@radix-ui/react-popover";
 
 const Header = ({ mobileMenuOpen, setMobileMenuOpen }) => {
   const dispatch = useDispatch();
@@ -23,7 +24,6 @@ const Header = ({ mobileMenuOpen, setMobileMenuOpen }) => {
   const [newTaskModalOpen, setNewTaskModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [editForm, setEditForm] = useState({ ...board });
-  const [popupMenuOpen, setPopupMenuOpen] = useState(false);
 
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -36,7 +36,6 @@ const Header = ({ mobileMenuOpen, setMobileMenuOpen }) => {
   }, [isError]);
 
   const handleDelete = () => {
-    setPopupMenuOpen(false);
     dispatch(deleteBoard(board));
     if (isSuccess) {
       navigate("/");
@@ -45,7 +44,6 @@ const Header = ({ mobileMenuOpen, setMobileMenuOpen }) => {
 
   const openEdit = () => {
     setEditForm({ ...board });
-    setPopupMenuOpen(false);
     setEditModalOpen(true);
   };
 
@@ -65,7 +63,7 @@ const Header = ({ mobileMenuOpen, setMobileMenuOpen }) => {
 
   const PopupMenu = () => {
     return (
-      <div className="popup-menu" style={{ right: "10px" }} onClick={(e) => e.stopPropagation()}>
+      <div className="popup-menu">
         <div onClick={openEdit} className="white-color">
           Edit Board
         </div>
@@ -127,14 +125,18 @@ const Header = ({ mobileMenuOpen, setMobileMenuOpen }) => {
           )}
 
           {board && (
-            <div
-              className="ellipsis"
-              style={{ position: "relative" }}
-              onClick={() => setPopupMenuOpen(!popupMenuOpen)}
-            >
-              <img src={VerticalEllipsis} />
-              {popupMenuOpen && <PopupMenu />}
-            </div>
+            <Popover.Root>
+              <Popover.Trigger asChild>
+                <div className="ellipsis">
+                  <img src={VerticalEllipsis} />
+                </div>
+              </Popover.Trigger>
+              <Popover.Portal>
+                <Popover.Content side="left" sideOffset={175}>
+                  <PopupMenu />
+                </Popover.Content>
+              </Popover.Portal>
+            </Popover.Root>
           )}
         </div>
       </div>

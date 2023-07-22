@@ -31,7 +31,7 @@ const SideBar = ({ boards, setNewBoardModalOpen, setMobileMenuOpen }) => {
 
   const renderBoards = () => {
     return boards.map((b) => (
-      <li key={b._id} onClick={() => setMobileMenuOpen(false)}>
+      <li key={b._id} onClick={size.width < 500 ? () => setMobileMenuOpen(false) : () => {}}>
         <Link
           role="button"
           className={`link ${b._id === board?._id ? "active" : ""}`}

@@ -18,7 +18,9 @@ const Task = ({ task, index }) => {
   const [popupMenuOpen, setPopupMenuOpen] = useState(false);
   const [editedSubtasks, setEditedSubtasks] = useState([...task.subtasks]);
 
-  const deleteTask = () => {
+  const deleteTask = (e) => {
+    e.preventDefault();
+
     const newTasks = board.tasks.filter((t) => t.id !== task.id);
 
     const newCol = { ...board.columns.filter((c) => c.name === task.status.label)[0] };
