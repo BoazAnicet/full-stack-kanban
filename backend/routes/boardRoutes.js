@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const boardController = require("../controllers/boardController");
-const { fetchAllBoards, createBoard, fetchBoard, editBoard, deleteBoard } =
-  boardController;
+const { fetchAllBoards, createBoard, fetchBoard, editBoard, deleteBoard } = boardController;
 const { protect } = require("../middleware/authMiddleware");
 
 router.get("/", protect, fetchAllBoards);
