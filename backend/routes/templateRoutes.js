@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const { createTemplate, fetchAllTemplates } = require("../controllers/templateController");
+const {
+  createTemplate,
+  fetchAllTemplates,
+} = require("../controllers/templateController");
 const { protect } = require("../middleware/authMiddleware");
 
 router.get("/", protect, fetchAllTemplates);

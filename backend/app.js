@@ -28,7 +28,10 @@ app.use(mongoSanitize());
 const PORT = process.env.PORT || 3001;
 mongoose.set("strictQuery", false);
 mongoose
-  .connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     console.log("Connected to database.");
     app.listen(PORT, () => console.log(`Listening on ${PORT}`));
